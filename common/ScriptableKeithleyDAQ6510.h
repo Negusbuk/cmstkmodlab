@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <VScriptableDevice.h>
 
@@ -32,9 +32,9 @@ public:
 
 public slots:
 
-  QScriptValue state(unsigned int sensor);
-  QScriptValue temperature(unsigned int sensor);
-  QScriptValue temperatureAsString(unsigned int sensor);
+  QJSValue state(unsigned int sensor);
+  QJSValue temperature(unsigned int sensor);
+  QJSValue temperatureAsString(unsigned int sensor);
 
   void setUpdateInterval(int updateInterval);
 

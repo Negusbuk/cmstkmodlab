@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <VScriptableDevice.h>
 
@@ -33,44 +33,44 @@ public:
 public slots:
 
   void setTemperatureSetPoint(double temperature);
-  QScriptValue getTemperatureSetPoint();
+  QJSValue getTemperatureSetPoint();
 
   void switchTemperatureControlOn();
   void switchTemperatureControlOff();
-  QScriptValue isTemperatureControlOn();
+  QJSValue isTemperatureControlOn();
 
   void switchCirculatorOn();
   void switchCirculatorOff();
-  QScriptValue isCirculatorOn();
+  QJSValue isCirculatorOn();
 
-  QScriptValue getInternalTemperature();
-  QScriptValue getProcessTemperature();
-  QScriptValue getReturnTemperature();
+  QJSValue getInternalTemperature();
+  QJSValue getProcessTemperature();
+  QJSValue getReturnTemperature();
 
-  QScriptValue getPumpPressure();
-  QScriptValue getPower();
+  QJSValue getPumpPressure();
+  QJSValue getPower();
 
-  QScriptValue getCoolingWaterInletTemperature();
-  QScriptValue getCoolingWaterOutletTemperature();
+  QJSValue getCoolingWaterInletTemperature();
+  QJSValue getCoolingWaterOutletTemperature();
 
-  QScriptValue getControlMode();
+  QJSValue getControlMode();
   void setControlMode(bool process);
 
-  QScriptValue getAutoPID();
+  QJSValue getAutoPID();
   void setAutoPID(bool autoPID);
 
-  QScriptValue getKpInternal();
+  QJSValue getKpInternal();
   void setKpInternal(int Kp);
-  QScriptValue getTnInternal();
+  QJSValue getTnInternal();
   void setTnInternal(double Tn);
-  QScriptValue getTvInternal();
+  QJSValue getTvInternal();
   void setTvInternal(double Tv);
 
-  QScriptValue getKpProcess();
+  QJSValue getKpProcess();
   void setKpProcess(int Kp);
-  QScriptValue getTnProcess();
+  QJSValue getTnProcess();
   void setTnProcess(double Tn);
-  QScriptValue getTvProcess();
+  QJSValue getTvProcess();
   void setTvProcess(double Tv);
 
   void waitForInternalTemperatureAbove(float temperature,

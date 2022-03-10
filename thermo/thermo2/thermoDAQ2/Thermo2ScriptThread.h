@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QThread>
-#include <QScriptEngine>
+#include <QJSEngine>
 
 class Thermo2ScriptModel;
 
@@ -53,7 +53,7 @@ protected:
   void run();
 
   QString script_;
-  QScriptEngine* engine_;
+  QJSEngine* engine_;
 
   Thermo2ScriptableGlobals *globalsObj_;
   ScriptableLeyboldGraphixOne *leyboldObj_;

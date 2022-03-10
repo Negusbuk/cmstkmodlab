@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <HuberPetiteFleurModel.h>
 
@@ -40,9 +40,9 @@ public slots:
   void switchCirculatorOff();
   void setWorkingTemperature(double temperature);
 
-  QScriptValue isCirculatorOn();
-  QScriptValue getWorkingTemperature();
-  QScriptValue getBathTemperature();
+  QJSValue isCirculatorOn();
+  QJSValue getWorkingTemperature();
+  QJSValue getBathTemperature();
 
   void waitForTemperatureAbove(float temperature,
                                int timeout);

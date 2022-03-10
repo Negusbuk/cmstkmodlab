@@ -36,11 +36,11 @@ void ScriptableThermo2ThroughPlane::abort()
   abortRequested_ = true;
 }
 
-QScriptValue ScriptableThermo2ThroughPlane::getSinkTemperature()
+QJSValue ScriptableThermo2ThroughPlane::getSinkTemperature()
 {
   QMutexLocker locker(&mutex_);
   double value = model_->getTemperatureSetPoint();
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
 void ScriptableThermo2ThroughPlane::setSinkTemperature(double temperature)
@@ -53,11 +53,11 @@ void ScriptableThermo2ThroughPlane::setSinkTemperature(double temperature)
 }
 
 
-QScriptValue ScriptableThermo2ThroughPlane::getSourcePower()
+QJSValue ScriptableThermo2ThroughPlane::getSourcePower()
 {
   QMutexLocker locker(&mutex_);
   double value = model_->getSourcePower();
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
 void ScriptableThermo2ThroughPlane::setSourcePower(double power)
@@ -69,82 +69,82 @@ void ScriptableThermo2ThroughPlane::setSourcePower(double power)
   emit changeSourcePower(power);
 }
 
-QScriptValue ScriptableThermo2ThroughPlane::getTopSensor(unsigned int position)
+QJSValue ScriptableThermo2ThroughPlane::getTopSensor(unsigned int position)
 {
   QMutexLocker locker(&mutex_);
   int value = model_->getKeithleyTopSensor(position);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableThermo2ThroughPlane::getBottomSensor(unsigned int position)
+QJSValue ScriptableThermo2ThroughPlane::getBottomSensor(unsigned int position)
 {
   QMutexLocker locker(&mutex_);
   int value = model_->getKeithleyBottomSensor(position);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
 
-QScriptValue ScriptableThermo2ThroughPlane::getTopTemperature(unsigned int position)
+QJSValue ScriptableThermo2ThroughPlane::getTopTemperature(unsigned int position)
 {
   QMutexLocker locker(&mutex_);
   double value = model_->getKeithleyTopTemperature(position);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableThermo2ThroughPlane::getBottomTemperature(unsigned int position)
+QJSValue ScriptableThermo2ThroughPlane::getBottomTemperature(unsigned int position)
 {
   QMutexLocker locker(&mutex_);
   double value = model_->getKeithleyBottomTemperature(position);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableThermo2ThroughPlane::getGradientTop()
+QJSValue ScriptableThermo2ThroughPlane::getGradientTop()
 {
   QMutexLocker locker(&mutex_);
   double value = model_->getGradientTop();
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableThermo2ThroughPlane::getPowerTop()
+QJSValue ScriptableThermo2ThroughPlane::getPowerTop()
 {
   QMutexLocker locker(&mutex_);
   double value = model_->getPowerTop();
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableThermo2ThroughPlane::getSampleTemperatureTop()
+QJSValue ScriptableThermo2ThroughPlane::getSampleTemperatureTop()
 {
   QMutexLocker locker(&mutex_);
   double value = model_->getSampleTemperatureTop();
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableThermo2ThroughPlane::getSampleTemperatureMiddle()
+QJSValue ScriptableThermo2ThroughPlane::getSampleTemperatureMiddle()
 {
   QMutexLocker locker(&mutex_);
   double value = model_->getSampleTemperatureMiddle();
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableThermo2ThroughPlane::getSampleTemperatureBottom()
+QJSValue ScriptableThermo2ThroughPlane::getSampleTemperatureBottom()
 {
   QMutexLocker locker(&mutex_);
   double value = model_->getSampleTemperatureBottom();
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableThermo2ThroughPlane::getGradientBottom()
+QJSValue ScriptableThermo2ThroughPlane::getGradientBottom()
 {
   QMutexLocker locker(&mutex_);
   double value = model_->getGradientBottom();
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableThermo2ThroughPlane::getPowerBottom()
+QJSValue ScriptableThermo2ThroughPlane::getPowerBottom()
 {
   QMutexLocker locker(&mutex_);
   double value = model_->getPowerBottom();
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
 void ScriptableThermo2ThroughPlane::waitForStableSampleTemperature(float FOMlimit,

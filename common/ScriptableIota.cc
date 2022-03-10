@@ -50,34 +50,34 @@ void ScriptableIota::setFlow(float flow) {
   IotaModel_->setFlowValue(flow);
 }
 
-QScriptValue ScriptableIota::isPumpOn() {
+QJSValue ScriptableIota::isPumpOn() {
 
   QMutexLocker locker(&mutex_);
-  return QScriptValue((int)IotaModel_->isPumpEnabled());
+  return QJSValue((int)IotaModel_->isPumpEnabled());
 }
 
-QScriptValue ScriptableIota::getActPressure() {
+QJSValue ScriptableIota::getActPressure() {
 
   QMutexLocker locker(&mutex_);
-  return QScriptValue(IotaModel_->getActPressure());
+  return QJSValue(IotaModel_->getActPressure());
 }
 
-QScriptValue ScriptableIota::getSetPressure() {
+QJSValue ScriptableIota::getSetPressure() {
 
   QMutexLocker locker(&mutex_);
-  return QScriptValue(IotaModel_->getSetPressureParameter().getValue());
+  return QJSValue(IotaModel_->getSetPressureParameter().getValue());
 }
 
-QScriptValue ScriptableIota::getActFlow() {
+QJSValue ScriptableIota::getActFlow() {
 
   QMutexLocker locker(&mutex_);
-  return QScriptValue(IotaModel_->getActFlow());
+  return QJSValue(IotaModel_->getActFlow());
 }
 
-QScriptValue ScriptableIota::getSetFlow() {
+QJSValue ScriptableIota::getSetFlow() {
 
   QMutexLocker locker(&mutex_);
-  return QScriptValue(IotaModel_->getSetFlowParameter().getValue());
+  return QJSValue(IotaModel_->getSetFlowParameter().getValue());
 }
 
 void ScriptableIota::waitForPressureAbove(float pressure,

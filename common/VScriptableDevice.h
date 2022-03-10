@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 class VScriptableDevice : public QObject
 {

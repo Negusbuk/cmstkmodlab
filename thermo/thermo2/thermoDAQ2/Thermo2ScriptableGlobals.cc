@@ -127,24 +127,24 @@ void Thermo2ScriptableGlobals::log(const QString & text)
   scriptModel_->log(text);
 }
 
-QScriptValue Thermo2ScriptableGlobals::uTime() const
+QJSValue Thermo2ScriptableGlobals::uTime() const
 {
   uint utime = QDateTime::currentDateTime().toUTC().toTime_t();
-  return QScriptValue(utime);
+  return QJSValue(utime);
 }
 
-QScriptValue Thermo2ScriptableGlobals::eTime()
+QJSValue Thermo2ScriptableGlobals::eTime()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(scriptModel_->executionTime());
+  return QJSValue(scriptModel_->executionTime());
 }
 
-QScriptValue Thermo2ScriptableGlobals::mkUTime(int year, int month, int day,
-                                               int hour, int minute, int second) const
+QJSValue Thermo2ScriptableGlobals::mkUTime(int year, int month, int day,
+    int hour, int minute, int second) const
 {
   QDateTime dt(QDate(year, month, day), QTime(hour, minute, second), Qt::UTC);
   uint utime = dt.toTime_t();
-  return QScriptValue(utime);
+  return QJSValue(utime);
 }
 
 void Thermo2ScriptableGlobals::mattermost(const QString& message)

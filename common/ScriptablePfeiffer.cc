@@ -23,21 +23,21 @@ ScriptablePfeiffer::ScriptablePfeiffer(PfeifferModel* pfeifferModel, QObject *pa
 
 }
 
-//QScriptValue ScriptablePfeiffer::state(unsigned int channel) {
+//QJSValue ScriptablePfeiffer::state(unsigned int channel) {
 
 //  QMutexLocker locker(&mutex_);
 
-//  if (channel>9) return QScriptValue(0);
+//  if (channel>9) return QJSValue(0);
 
 //  int state = static_cast<int>(pfeifferModel_->getSensorState(channel));
-//  return QScriptValue(state);
+//  return QJSValue(state);
 //}
 
-//QScriptValue ScriptablePfeiffer::temperature(unsigned int channel) {
+//QJSValue ScriptablePfeiffer::temperature(unsigned int channel) {
 
 //  QMutexLocker locker(&mutex_);
 
-//  if (channel>9) return QScriptValue(-99);
+//  if (channel>9) return QJSValue(-99);
 
-//  return QScriptValue(pfeifferModel_->getTemperature(channel));
+//  return QJSValue(pfeifferModel_->getTemperature(channel));
 //}

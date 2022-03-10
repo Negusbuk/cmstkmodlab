@@ -40,10 +40,10 @@ void ScriptableMarta::setTemperatureSetPoint(double temperature)
   model_->setTemperatureSetpoint(temperature);
 }
 
-QScriptValue ScriptableMarta::getTemperatureSetPoint()
+QJSValue ScriptableMarta::getTemperatureSetPoint()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getTemperatureSetpoint());
+  return QJSValue(model_->getTemperatureSetpoint());
 }
 
 void ScriptableMarta::setSpeedSetPoint(double speed)
@@ -52,10 +52,10 @@ void ScriptableMarta::setSpeedSetPoint(double speed)
   model_->setSpeedSetpoint(speed);
 }
 
-QScriptValue ScriptableMarta::getSpeedSetPoint()
+QJSValue ScriptableMarta::getSpeedSetPoint()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getSpeedSetpoint());
+  return QJSValue(model_->getSpeedSetpoint());
 }
 
 void ScriptableMarta::setFlowSetPoint(double flow)
@@ -64,10 +64,10 @@ void ScriptableMarta::setFlowSetPoint(double flow)
   model_->setFlowSetpoint(flow);
 }
 
-QScriptValue ScriptableMarta::getFlowSetPoint()
+QJSValue ScriptableMarta::getFlowSetPoint()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getFlowSetpoint());
+  return QJSValue(model_->getFlowSetpoint());
 }
 
 void ScriptableMarta::waitForTemperatureAbove(float temperature,

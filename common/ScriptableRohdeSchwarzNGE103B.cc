@@ -35,11 +35,11 @@ ScriptableRohdeSchwarzNGE103B::ScriptableRohdeSchwarzNGE103B(RohdeSchwarzNGE103B
           model_, SLOT(setEasyRampState(int, bool)));
 }
 
-QScriptValue ScriptableRohdeSchwarzNGE103B::getOutputState(int channel)
+QJSValue ScriptableRohdeSchwarzNGE103B::getOutputState(int channel)
 {
   QMutexLocker locker(&mutex_);
   bool value = model_->getOutputState(channel);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
 void ScriptableRohdeSchwarzNGE103B::setOutputState(int channel, bool state)
@@ -52,12 +52,12 @@ void ScriptableRohdeSchwarzNGE103B::setOutputState(int channel, bool state)
   emit changeOutputState(channel, state);
 }
 
-QScriptValue ScriptableRohdeSchwarzNGE103B::getVoltage(int channel)
+QJSValue ScriptableRohdeSchwarzNGE103B::getVoltage(int channel)
 {
   QMutexLocker locker(&mutex_);
-  if (channel<1 || channel>3) return QScriptValue(-1);
+  if (channel<1 || channel>3) return QJSValue(-1);
   float value = model_->getVoltage(channel);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
 void ScriptableRohdeSchwarzNGE103B::setVoltage(int channel, float voltage)
@@ -70,20 +70,20 @@ void ScriptableRohdeSchwarzNGE103B::setVoltage(int channel, float voltage)
   emit changeSetVoltage(channel, voltage);
 }
 
-QScriptValue ScriptableRohdeSchwarzNGE103B::getMeasuredVoltage(int channel)
+QJSValue ScriptableRohdeSchwarzNGE103B::getMeasuredVoltage(int channel)
 {
   QMutexLocker locker(&mutex_);
-  if (channel<1 || channel>3) return QScriptValue(-1);
+  if (channel<1 || channel>3) return QJSValue(-1);
   float value = model_->getMeasuredVoltage(channel);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableRohdeSchwarzNGE103B::getCurrent(int channel)
+QJSValue ScriptableRohdeSchwarzNGE103B::getCurrent(int channel)
 {
   QMutexLocker locker(&mutex_);
-  if (channel<1 || channel>3) return QScriptValue(-1);
+  if (channel<1 || channel>3) return QJSValue(-1);
   float value = model_->getCurrent(channel);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
 void ScriptableRohdeSchwarzNGE103B::setCurrent(int channel, float current)
@@ -96,20 +96,20 @@ void ScriptableRohdeSchwarzNGE103B::setCurrent(int channel, float current)
   emit changeSetCurrent(channel, current);
 }
 
-QScriptValue ScriptableRohdeSchwarzNGE103B::getMeasuredCurrent(int channel)
+QJSValue ScriptableRohdeSchwarzNGE103B::getMeasuredCurrent(int channel)
 {
   QMutexLocker locker(&mutex_);
-  if (channel<1 || channel>3) return QScriptValue(-1);
+  if (channel<1 || channel>3) return QJSValue(-1);
   float value = model_->getMeasuredCurrent(channel);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableRohdeSchwarzNGE103B::getEasyRampDuration(int channel)
+QJSValue ScriptableRohdeSchwarzNGE103B::getEasyRampDuration(int channel)
 {
   QMutexLocker locker(&mutex_);
-  if (channel<1 || channel>3) return QScriptValue(-1);
+  if (channel<1 || channel>3) return QJSValue(-1);
   bool value = model_->getEasyRampDuration(channel);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
 void ScriptableRohdeSchwarzNGE103B::setEasyRampDuration(int channel, float duration)
@@ -122,11 +122,11 @@ void ScriptableRohdeSchwarzNGE103B::setEasyRampDuration(int channel, float durat
   emit changeEasyRampDuration(channel, duration);
 }
 
-QScriptValue ScriptableRohdeSchwarzNGE103B::getEasyRampState(int channel)
+QJSValue ScriptableRohdeSchwarzNGE103B::getEasyRampState(int channel)
 {
   QMutexLocker locker(&mutex_);
   bool value = model_->getEasyRampState(channel);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
 void ScriptableRohdeSchwarzNGE103B::setEasyRampState(int channel, bool state)

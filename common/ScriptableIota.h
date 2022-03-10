@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <IotaModel.h>
 
@@ -41,11 +41,11 @@ public:
   void setPressure(float pressure);
   void setFlow(float flow);
 
-  QScriptValue isPumpOn();
-  QScriptValue getActPressure();
-  QScriptValue getActFlow();
-  QScriptValue getSetPressure();
-  QScriptValue getSetFlow();
+  QJSValue isPumpOn();
+  QJSValue getActPressure();
+  QJSValue getActFlow();
+  QJSValue getSetPressure();
+  QJSValue getSetFlow();
 
   void waitForPressureAbove(float pressure,
                             int timeout);

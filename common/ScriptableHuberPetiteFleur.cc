@@ -44,22 +44,22 @@ void ScriptableHuberPetiteFleur::setWorkingTemperature(double temperature) {
  huberPetiteFleurModel_->setWorkingTemperatureValue(temperature);
 }
 
-QScriptValue ScriptableHuberPetiteFleur::isCirculatorOn() {
+QJSValue ScriptableHuberPetiteFleur::isCirculatorOn() {
 
   QMutexLocker locker(&mutex_);
-  return QScriptValue(huberPetiteFleurModel_->isCirculatorEnabled());
+  return QJSValue(huberPetiteFleurModel_->isCirculatorEnabled());
 }
 
-QScriptValue ScriptableHuberPetiteFleur::getWorkingTemperature() {
+QJSValue ScriptableHuberPetiteFleur::getWorkingTemperature() {
 
   QMutexLocker locker(&mutex_);
-  return QScriptValue(huberPetiteFleurModel_->getWorkingTemperatureParameter().getValue());
+  return QJSValue(huberPetiteFleurModel_->getWorkingTemperatureParameter().getValue());
 }
 
-QScriptValue ScriptableHuberPetiteFleur::getBathTemperature() {
+QJSValue ScriptableHuberPetiteFleur::getBathTemperature() {
 
   QMutexLocker locker(&mutex_);
-  return QScriptValue(huberPetiteFleurModel_->getBathTemperature());
+  return QJSValue(huberPetiteFleurModel_->getBathTemperature());
 }
 
 void ScriptableHuberPetiteFleur::waitForTemperatureAbove(float temperature,

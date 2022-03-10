@@ -40,10 +40,10 @@ void ScriptableHuberUnistat525w::setTemperatureSetPoint(double temperature)
   model_->setTemperatureSetPoint(temperature);
 }
 
-QScriptValue ScriptableHuberUnistat525w::getTemperatureSetPoint()
+QJSValue ScriptableHuberUnistat525w::getTemperatureSetPoint()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getTemperatureSetPoint());
+  return QJSValue(model_->getTemperatureSetPoint());
 }
 
 void ScriptableHuberUnistat525w::switchTemperatureControlOn()
@@ -58,10 +58,10 @@ void ScriptableHuberUnistat525w::switchTemperatureControlOff()
   model_->setTemperatureControlEnabled(false);
 }
 
-QScriptValue ScriptableHuberUnistat525w::isTemperatureControlOn()
+QJSValue ScriptableHuberUnistat525w::isTemperatureControlOn()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getTemperatureControlEnabled());
+  return QJSValue(model_->getTemperatureControlEnabled());
 }
 
 void ScriptableHuberUnistat525w::switchCirculatorOn()
@@ -76,58 +76,58 @@ void ScriptableHuberUnistat525w::switchCirculatorOff()
   model_->setCirculatorEnabled(false);
 }
 
-QScriptValue ScriptableHuberUnistat525w::isCirculatorOn()
+QJSValue ScriptableHuberUnistat525w::isCirculatorOn()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getCirculatorEnabled());
+  return QJSValue(model_->getCirculatorEnabled());
 }
 
-QScriptValue ScriptableHuberUnistat525w::getInternalTemperature()
+QJSValue ScriptableHuberUnistat525w::getInternalTemperature()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getInternalTemperature());
+  return QJSValue(model_->getInternalTemperature());
 }
 
-QScriptValue ScriptableHuberUnistat525w::getProcessTemperature()
+QJSValue ScriptableHuberUnistat525w::getProcessTemperature()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getProcessTemperature());
+  return QJSValue(model_->getProcessTemperature());
 }
 
-QScriptValue ScriptableHuberUnistat525w::getReturnTemperature()
+QJSValue ScriptableHuberUnistat525w::getReturnTemperature()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getReturnTemperature());
+  return QJSValue(model_->getReturnTemperature());
 }
 
-QScriptValue ScriptableHuberUnistat525w::getPumpPressure()
+QJSValue ScriptableHuberUnistat525w::getPumpPressure()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getPumpPressure());
+  return QJSValue(model_->getPumpPressure());
 }
 
-QScriptValue ScriptableHuberUnistat525w::getPower()
+QJSValue ScriptableHuberUnistat525w::getPower()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getPower());
+  return QJSValue(model_->getPower());
 }
 
-QScriptValue ScriptableHuberUnistat525w::getCoolingWaterInletTemperature()
+QJSValue ScriptableHuberUnistat525w::getCoolingWaterInletTemperature()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getCoolingWaterInletTemperature());
+  return QJSValue(model_->getCoolingWaterInletTemperature());
 }
 
-QScriptValue ScriptableHuberUnistat525w::getCoolingWaterOutletTemperature()
+QJSValue ScriptableHuberUnistat525w::getCoolingWaterOutletTemperature()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getCoolingWaterOutletTemperature());
+  return QJSValue(model_->getCoolingWaterOutletTemperature());
 }
 
-QScriptValue ScriptableHuberUnistat525w::getControlMode()
+QJSValue ScriptableHuberUnistat525w::getControlMode()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getTemperatureControlMode());
+  return QJSValue(model_->getTemperatureControlMode());
 }
 
 void ScriptableHuberUnistat525w::setControlMode(bool process)
@@ -136,10 +136,10 @@ void ScriptableHuberUnistat525w::setControlMode(bool process)
   model_->setTemperatureControlMode(process);
 }
 
-QScriptValue ScriptableHuberUnistat525w::getAutoPID()
+QJSValue ScriptableHuberUnistat525w::getAutoPID()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getAutoPID());
+  return QJSValue(model_->getAutoPID());
 }
 
 void ScriptableHuberUnistat525w::setAutoPID(bool autoPID)
@@ -148,10 +148,10 @@ void ScriptableHuberUnistat525w::setAutoPID(bool autoPID)
   model_->setAutoPID(autoPID);
 }
 
-QScriptValue ScriptableHuberUnistat525w::getKpInternal()
+QJSValue ScriptableHuberUnistat525w::getKpInternal()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getKpInternal());
+  return QJSValue(model_->getKpInternal());
 }
 
 void ScriptableHuberUnistat525w::setKpInternal(int Kp)
@@ -160,10 +160,10 @@ void ScriptableHuberUnistat525w::setKpInternal(int Kp)
   model_->setKpInternal(Kp);
 }
 
-QScriptValue ScriptableHuberUnistat525w::getTnInternal()
+QJSValue ScriptableHuberUnistat525w::getTnInternal()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getTnInternal());
+  return QJSValue(model_->getTnInternal());
 }
 
 void ScriptableHuberUnistat525w::setTnInternal(double Tn)
@@ -172,10 +172,10 @@ void ScriptableHuberUnistat525w::setTnInternal(double Tn)
   model_->setTnInternal(Tn);
 }
 
-QScriptValue ScriptableHuberUnistat525w::getTvInternal()
+QJSValue ScriptableHuberUnistat525w::getTvInternal()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getTvInternal());
+  return QJSValue(model_->getTvInternal());
 }
 
 void ScriptableHuberUnistat525w::setTvInternal(double Tv)
@@ -184,10 +184,10 @@ void ScriptableHuberUnistat525w::setTvInternal(double Tv)
   model_->setTvInternal(Tv);
 }
 
-QScriptValue ScriptableHuberUnistat525w::getKpProcess()
+QJSValue ScriptableHuberUnistat525w::getKpProcess()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getKpProcess());
+  return QJSValue(model_->getKpProcess());
 }
 
 void ScriptableHuberUnistat525w::setKpProcess(int Kp)
@@ -196,10 +196,10 @@ void ScriptableHuberUnistat525w::setKpProcess(int Kp)
   model_->setKpProcess(Kp);
 }
 
-QScriptValue ScriptableHuberUnistat525w::getTnProcess()
+QJSValue ScriptableHuberUnistat525w::getTnProcess()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getTnProcess());
+  return QJSValue(model_->getTnProcess());
 }
 
 void ScriptableHuberUnistat525w::setTnProcess(double Tn)
@@ -208,10 +208,10 @@ void ScriptableHuberUnistat525w::setTnProcess(double Tn)
   model_->setTnProcess(Tn);
 }
 
-QScriptValue ScriptableHuberUnistat525w::getTvProcess()
+QJSValue ScriptableHuberUnistat525w::getTvProcess()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getTvProcess());
+  return QJSValue(model_->getTvProcess());
 }
 
 void ScriptableHuberUnistat525w::setTvProcess(double Tv)

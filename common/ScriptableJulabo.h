@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <JulaboModel.h>
 
@@ -40,10 +40,10 @@ public slots:
   void disableCirculator();
   void setWorkingTemperature( double temperature );
 
-  QScriptValue circulator();
-  QScriptValue workingTemperature();
-  QScriptValue bath();
-  QScriptValue safety();
+  QJSValue circulator();
+  QJSValue workingTemperature();
+  QJSValue bath();
+  QJSValue safety();
 
 signals:
   void changeP( double p );

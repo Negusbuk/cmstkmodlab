@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <HamegModel.h>
 
@@ -35,9 +35,9 @@ public:
 
 public slots:
 
-  QScriptValue isRemoteMode();
-  QScriptValue isOutputEnabled();
-  QScriptValue isConstantVoltageMode(int channel);
+  QJSValue isRemoteMode();
+  QJSValue isOutputEnabled();
+  QJSValue isConstantVoltageMode(int channel);
 
   void remoteOn();
   void remoteOff();
@@ -46,9 +46,9 @@ public slots:
   void switchOutputOff();
 
   void setVoltage(int channel, float voltage);
-  QScriptValue getVoltage(int channel);
+  QJSValue getVoltage(int channel);
   void setCurrent(int channel, float current);
-  QScriptValue getCurrent(int channel);
+  QJSValue getCurrent(int channel);
 
 signals:
 

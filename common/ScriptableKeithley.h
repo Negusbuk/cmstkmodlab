@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <KeithleyModel.h>
 
@@ -35,9 +35,9 @@ public:
 
 public slots:
 
-  QScriptValue state(unsigned int channel);
-  QScriptValue temperature(unsigned int channel);
-  QScriptValue temperatureAsString(unsigned int channel);
+  QJSValue state(unsigned int channel);
+  QJSValue temperature(unsigned int channel);
+  QJSValue temperatureAsString(unsigned int channel);
 
   void waitForStableTemperature(const QString & channels,
                                 int timeout);

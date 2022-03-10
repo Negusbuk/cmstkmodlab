@@ -26,10 +26,10 @@ ScriptableCoriFlow::ScriptableCoriFlow(CoriFlowModel* CoriFlowModel,
 
 }
 
-QScriptValue ScriptableCoriFlow::getTemp() {
+QJSValue ScriptableCoriFlow::getTemp() {
 
   QMutexLocker locker(&mutex_);
-  return QScriptValue(CoriFlowModel_->getTemp());
+  return QJSValue(CoriFlowModel_->getTemp());
 }
 
 

@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <ArduinoPresModel.h>
 
@@ -36,8 +36,8 @@ public:
 
   public slots:
 
-  QScriptValue getPressureA();
-  QScriptValue getPressureB();
+  QJSValue getPressureA();
+  QJSValue getPressureB();
   
 
   void waitForPressureAAbove(float pressure,int timeout);

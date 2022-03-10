@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <Thermo2ThroughPlaneModel.h>
 
@@ -31,25 +31,25 @@ public:
 
 public slots:
 
-  QScriptValue getSinkTemperature();
+  QJSValue getSinkTemperature();
   void setSinkTemperature(double temperature);
 
-  QScriptValue getSourcePower();
+  QJSValue getSourcePower();
   void setSourcePower(double power);
 
-  QScriptValue getTopSensor(unsigned int position);
-  QScriptValue getBottomSensor(unsigned int position);
+  QJSValue getTopSensor(unsigned int position);
+  QJSValue getBottomSensor(unsigned int position);
 
-  QScriptValue getTopTemperature(unsigned int position);
-  QScriptValue getBottomTemperature(unsigned int position);
+  QJSValue getTopTemperature(unsigned int position);
+  QJSValue getBottomTemperature(unsigned int position);
 
-  QScriptValue getGradientTop();
-  QScriptValue getPowerTop();
-  QScriptValue getSampleTemperatureTop();
-  QScriptValue getSampleTemperatureMiddle();
-  QScriptValue getSampleTemperatureBottom();
-  QScriptValue getGradientBottom();
-  QScriptValue getPowerBottom();
+  QJSValue getGradientTop();
+  QJSValue getPowerTop();
+  QJSValue getSampleTemperatureTop();
+  QJSValue getSampleTemperatureMiddle();
+  QJSValue getSampleTemperatureBottom();
+  QJSValue getGradientBottom();
+  QJSValue getPowerBottom();
 
   void waitForStableSampleTemperature(float FOMlimit, int delay, int timeout);
 
