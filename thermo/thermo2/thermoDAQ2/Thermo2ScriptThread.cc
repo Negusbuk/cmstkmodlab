@@ -52,41 +52,40 @@ void Thermo2ScriptThread::executeScript(const QString & script)
 {
   script_ = script;
 
-  engine_ = new QScriptEngine();
-  engine_->setProcessEventsInterval(10);
+  engine_ = new QJSEngine();
 
   globalsObj_ = new Thermo2ScriptableGlobals(scriptModel_, this);
-  QScriptValue globalsValue = engine_->newQObject(globalsObj_);
+  QJSValue globalsValue = engine_->newQObject(globalsObj_);
   engine_->globalObject().setProperty("thermo", globalsValue);
 
   if (leyboldModel_) {
     leyboldObj_ = new ScriptableLeyboldGraphixOne(leyboldModel_, this);
-    QScriptValue leyboldValue = engine_->newQObject(leyboldObj_);
+    QJSValue leyboldValue = engine_->newQObject(leyboldObj_);
     engine_->globalObject().setProperty("leybold", leyboldValue);
   }
 
   if (huberModel_) {
     huberObj_ = new ScriptableHuberUnistat525w(huberModel_, this);
-    QScriptValue huberValue = engine_->newQObject(huberObj_);
+    QJSValue huberValue = engine_->newQObject(huberObj_);
     engine_->globalObject().setProperty("huber", huberValue);
   }
 
   if (martaModel_) {
     martaObj_ = new ScriptableMarta(martaModel_, this);
-    QScriptValue martaValue = engine_->newQObject(martaObj_);
+    QJSValue martaValue = engine_->newQObject(martaObj_);
     engine_->globalObject().setProperty("marta", martaValue);
   }
 
   ScriptableRohdeSchwarzNGE103B *nge103BObj = new ScriptableRohdeSchwarzNGE103B(nge103BModel_, this);
-  QScriptValue nge103BValue = engine_->newQObject(nge103BObj);
+  QJSValue nge103BValue = engine_->newQObject(nge103BObj);
   engine_->globalObject().setProperty("nge103b", nge103BValue);
 
   keithleyObj_ = new ScriptableKeithleyDAQ6510(keithleyModel_, this);
-  QScriptValue keithleyValue = engine_->newQObject(keithleyObj_);
+  QJSValue keithleyValue = engine_->newQObject(keithleyObj_);
   engine_->globalObject().setProperty("keithley", keithleyValue);
 
   t2tpObj_ = new ScriptableThermo2ThroughPlane(t2tpModel_, this);
-  QScriptValue t2tpValue = engine_->newQObject(t2tpObj_);
+  QJSValue t2tpValue = engine_->newQObject(t2tpObj_);
   engine_->globalObject().setProperty("t2tp", t2tpValue);
 
   start();
@@ -96,8 +95,8 @@ void Thermo2ScriptThread::abortScript()
 {
   NQLogMessage("Thermo2ScriptThread") << "abortScript()";
   if (engine_) {
-    NQLogMessage("Thermo2ScriptThread") << "abort " << (int)engine_->isEvaluating();
-    engine_->abortEvaluation();
+    NQLogMessage("Thermo2ScriptThread") << "interrupted " << (int)engine_->isInterrupted();
+    engine_->setInterrupted(true);
     
     globalsObj_->abort();
     if (leyboldModel_) leyboldObj_->abort();
@@ -112,16 +111,7 @@ void Thermo2ScriptThread::run()
 {
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
-  if (engine_->canEvaluate(script_)) {
-    QScriptValue fun = engine_->evaluate(script_);
-    //QScriptContext * context = engine_->pushContext();
-    //QScriptValue v = context->activationObject();
-    //v.setProperty("fun", fun);
-    //engine_->evaluate("fun()");
-    //engine_->popContext();
-    delete engine_;
-    engine_ = 0;
-  } else {
-    qDebug() << script_;
-  }
+  QJSValue fun = engine_->evaluate(script_);
+  delete engine_;
+  engine_ = 0;
 }

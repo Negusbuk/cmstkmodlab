@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <VScriptableDevice.h>
 
@@ -33,13 +33,13 @@ public:
 public slots:
 
   void setTemperatureSetPoint(double temperature);
-  QScriptValue getTemperatureSetPoint();
+  QJSValue getTemperatureSetPoint();
 
   void setSpeedSetPoint(double speed);
-  QScriptValue getSpeedSetPoint();
+  QJSValue getSpeedSetPoint();
 
   void setFlowSetPoint(double flow);
-  QScriptValue getFlowSetPoint();
+  QJSValue getFlowSetPoint();
 
   void waitForTemperatureAbove(float temperature,
                                int timeout);

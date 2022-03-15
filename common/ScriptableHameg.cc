@@ -30,26 +30,26 @@ ScriptableHameg::ScriptableHameg(HamegModel* hamegModel, QObject *parent) :
           hamegModel_, SLOT(setCurrent(int, float)));
 }
 
-QScriptValue ScriptableHameg::isRemoteMode()
+QJSValue ScriptableHameg::isRemoteMode()
 {
   QMutexLocker locker(&mutex_);
   bool value = hamegModel_->isRemoteMode();
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableHameg::isOutputEnabled()
+QJSValue ScriptableHameg::isOutputEnabled()
 {
   QMutexLocker locker(&mutex_);
   bool value = hamegModel_->isOutputEnabled();
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
-QScriptValue ScriptableHameg::isConstantVoltageMode(int channel)
+QJSValue ScriptableHameg::isConstantVoltageMode(int channel)
 {
   QMutexLocker locker(&mutex_);
-  if (channel<1 || channel>2) return QScriptValue(-1);
+  if (channel<1 || channel>2) return QJSValue(-1);
   bool value = hamegModel_->isConstantVoltageMode(channel);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
 void ScriptableHameg::remoteOn()
@@ -83,12 +83,12 @@ void ScriptableHameg::setVoltage(int channel, float voltage)
   emit changeSetVoltage(channel, voltage);
 }
 
-QScriptValue ScriptableHameg::getVoltage(int channel)
+QJSValue ScriptableHameg::getVoltage(int channel)
 {
   QMutexLocker locker(&mutex_);
-  if (channel<1 || channel>2) return QScriptValue(-1);
+  if (channel<1 || channel>2) return QJSValue(-1);
   float value = hamegModel_->getVoltage(channel);
-  return QScriptValue(value);
+  return QJSValue(value);
 }
 
 void ScriptableHameg::setCurrent(int channel, float current)
@@ -98,10 +98,10 @@ void ScriptableHameg::setCurrent(int channel, float current)
   emit changeSetCurrent(channel, current);
 }
 
-QScriptValue ScriptableHameg::getCurrent(int channel)
+QJSValue ScriptableHameg::getCurrent(int channel)
 {
   QMutexLocker locker(&mutex_);
-  if (channel<1 || channel>2) return QScriptValue(-1);
+  if (channel<1 || channel>2) return QJSValue(-1);
   float value = hamegModel_->getCurrent(channel);
-  return QScriptValue(value);
+  return QJSValue(value);
 }

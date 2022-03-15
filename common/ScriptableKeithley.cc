@@ -31,32 +31,32 @@ ScriptableKeithley::ScriptableKeithley(KeithleyModel* keithleyModel, QObject *pa
 
 }
 
-QScriptValue ScriptableKeithley::state(unsigned int channel) {
+QJSValue ScriptableKeithley::state(unsigned int channel) {
 
   QMutexLocker locker(&mutex_);
 
-  if (channel>9) return QScriptValue(0);
+  if (channel>9) return QJSValue(0);
 
   int state = static_cast<int>(keithleyModel_->getSensorState(channel));
-  return QScriptValue(state);
+  return QJSValue(state);
 }
 
-QScriptValue ScriptableKeithley::temperature(unsigned int channel) {
+QJSValue ScriptableKeithley::temperature(unsigned int channel) {
 
   QMutexLocker locker(&mutex_);
 
-  if (channel>9) return QScriptValue(-99);
+  if (channel>9) return QJSValue(-99);
 
-  return QScriptValue(keithleyModel_->getTemperature(channel));
+  return QJSValue(keithleyModel_->getTemperature(channel));
 }
 
-QScriptValue ScriptableKeithley::temperatureAsString(unsigned int channel)
+QJSValue ScriptableKeithley::temperatureAsString(unsigned int channel)
 {
   QMutexLocker locker(&mutex_);
   
-  if (channel>9) return QScriptValue("-99");
+  if (channel>9) return QJSValue("-99");
   
-  return QScriptValue(QString::number(keithleyModel_->getTemperature(channel), 'f', 2));
+  return QJSValue(QString::number(keithleyModel_->getTemperature(channel), 'f', 2));
 }
 
 void ScriptableKeithley::waitForStableTemperature(const QString & channels,

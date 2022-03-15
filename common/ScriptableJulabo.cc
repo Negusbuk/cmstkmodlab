@@ -60,26 +60,26 @@ void ScriptableJulabo::setWorkingTemperature( double temperature ) {
   emit changeWorkingTemperature(temperature);
 }
 
-QScriptValue ScriptableJulabo::circulator() {
+QJSValue ScriptableJulabo::circulator() {
   
   QMutexLocker locker(&mutex_);
-  return QScriptValue(julaboModel_->isCirculatorEnabled());
+  return QJSValue(julaboModel_->isCirculatorEnabled());
 }
 
-QScriptValue ScriptableJulabo::workingTemperature() {
+QJSValue ScriptableJulabo::workingTemperature() {
   
   QMutexLocker locker(&mutex_);
-  return QScriptValue(julaboModel_->getWorkingTemperatureParameter().getValue());
+  return QJSValue(julaboModel_->getWorkingTemperatureParameter().getValue());
 }
 
-QScriptValue ScriptableJulabo::bath() {
+QJSValue ScriptableJulabo::bath() {
   
   QMutexLocker locker(&mutex_);
-  return QScriptValue(julaboModel_->getBathTemperature());
+  return QJSValue(julaboModel_->getBathTemperature());
 }
 
-QScriptValue ScriptableJulabo::safety() {
+QJSValue ScriptableJulabo::safety() {
   
   QMutexLocker locker(&mutex_);
-  return QScriptValue(julaboModel_->getSafetySensorTemperature());
+  return QJSValue(julaboModel_->getSafetySensorTemperature());
 }

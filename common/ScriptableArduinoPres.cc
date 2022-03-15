@@ -26,16 +26,16 @@ ScriptableArduinoPres::ScriptableArduinoPres(ArduinoPresModel* ArduinoPresModel,
 
 }
 
-QScriptValue ScriptableArduinoPres::getPressureA() {
+QJSValue ScriptableArduinoPres::getPressureA() {
 
   QMutexLocker locker(&mutex_);
-  return QScriptValue(ArduinoPresModel_->getPressureA());
+  return QJSValue(ArduinoPresModel_->getPressureA());
 }
 
-QScriptValue ScriptableArduinoPres::getPressureB() {
+QJSValue ScriptableArduinoPres::getPressureB() {
 
   QMutexLocker locker(&mutex_);
-  return QScriptValue(ArduinoPresModel_->getPressureB());
+  return QJSValue(ArduinoPresModel_->getPressureB());
 }
 
 void ScriptableArduinoPres::waitForPressureAAbove(float pressure,

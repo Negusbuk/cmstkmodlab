@@ -34,10 +34,10 @@ void ScriptableLeyboldGraphixOne::abort()
   abortRequested_ = true;
 }
 
-QScriptValue ScriptableLeyboldGraphixOne::getPressure()
+QJSValue ScriptableLeyboldGraphixOne::getPressure()
 {
   QMutexLocker locker(&mutex_);
-  return QScriptValue(model_->getPressure());
+  return QJSValue(model_->getPressure());
 }
 
 void ScriptableLeyboldGraphixOne::waitForPressureBelow(float pressure,

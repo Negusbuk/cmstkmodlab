@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <VScriptableDevice.h>
 
@@ -43,10 +43,10 @@ public slots:
   void message(double value);
   void message(const QString & text);
   void log(const QString & text);
-  QScriptValue uTime() const;
-  QScriptValue eTime();
-  QScriptValue mkUTime(int year, int month, int day,
-                       int hour, int minute, int second) const;
+  QJSValue uTime() const;
+  QJSValue eTime();
+  QJSValue mkUTime(int year, int month, int day,
+      int hour, int minute, int second) const;
 
   void mattermost(const QString& message);
 

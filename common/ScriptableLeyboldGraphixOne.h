@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <VScriptableDevice.h>
 
@@ -32,7 +32,7 @@ public:
 
 public slots:
 
-  QScriptValue getPressure();
+  QJSValue getPressure();
 
   void waitForPressureBelow(float pressure,
 			                int timeout);

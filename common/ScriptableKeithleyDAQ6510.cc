@@ -38,44 +38,44 @@ void ScriptableKeithleyDAQ6510::abort()
   abortRequested_ = true;
 }
 
-QScriptValue ScriptableKeithleyDAQ6510::state(unsigned int sensor)
+QJSValue ScriptableKeithleyDAQ6510::state(unsigned int sensor)
 {
   QMutexLocker locker(&mutex_);
 
   unsigned int card = sensor / 100;
   unsigned int channel = sensor % 100;
 
-  if (card<1 || card>2) return QScriptValue(0);
-  if (channel<1 || channel>10) return QScriptValue(0);
+  if (card<1 || card>2) return QJSValue(0);
+  if (channel<1 || channel>10) return QJSValue(0);
 
   int state = static_cast<int>(keithleyModel_->getSensorState(sensor));
-  return QScriptValue(state);
+  return QJSValue(state);
 }
 
-QScriptValue ScriptableKeithleyDAQ6510::temperature(unsigned int sensor)
+QJSValue ScriptableKeithleyDAQ6510::temperature(unsigned int sensor)
 {
   QMutexLocker locker(&mutex_);
 
   unsigned int card = sensor / 100;
   unsigned int channel = sensor % 100;
 
-  if (card<1 || card>2) return QScriptValue(0);
-  if (channel<1 || channel>10) return QScriptValue(0);
+  if (card<1 || card>2) return QJSValue(0);
+  if (channel<1 || channel>10) return QJSValue(0);
 
-  return QScriptValue(keithleyModel_->getTemperature(sensor));
+  return QJSValue(keithleyModel_->getTemperature(sensor));
 }
 
-QScriptValue ScriptableKeithleyDAQ6510::temperatureAsString(unsigned int sensor)
+QJSValue ScriptableKeithleyDAQ6510::temperatureAsString(unsigned int sensor)
 {
   QMutexLocker locker(&mutex_);
   
   unsigned int card = sensor / 100;
   unsigned int channel = sensor % 100;
 
-  if (card<1 || card>2) return QScriptValue("-99");
-  if (channel<1 || channel>10) return QScriptValue("-99");
+  if (card<1 || card>2) return QJSValue("-99");
+  if (channel<1 || channel>10) return QJSValue("-99");
 
-  return QScriptValue(QString::number(keithleyModel_->getTemperature(sensor), 'f', 2));
+  return QJSValue(QString::number(keithleyModel_->getTemperature(sensor), 'f', 2));
 }
 
 void ScriptableKeithleyDAQ6510::setUpdateInterval(int updateInterval)

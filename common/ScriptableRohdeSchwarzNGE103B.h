@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <RohdeSchwarzNGE103BModel.h>
 
@@ -27,21 +27,21 @@ public:
 
 public slots:
 
-  QScriptValue getOutputState(int channel);
+  QJSValue getOutputState(int channel);
   void setOutputState(int channel, bool state);
 
-  QScriptValue getVoltage(int channel);
+  QJSValue getVoltage(int channel);
   void setVoltage(int channel, float voltage);
-  QScriptValue getMeasuredVoltage(int channel);
+  QJSValue getMeasuredVoltage(int channel);
 
-  QScriptValue getCurrent(int channel);
+  QJSValue getCurrent(int channel);
   void setCurrent(int channel, float current);
-  QScriptValue getMeasuredCurrent(int channel);
+  QJSValue getMeasuredCurrent(int channel);
 
-  QScriptValue getEasyRampDuration(int channel);
+  QJSValue getEasyRampDuration(int channel);
   void setEasyRampDuration(int channel, float voltage);
 
-  QScriptValue getEasyRampState(int channel);
+  QJSValue getEasyRampState(int channel);
   void setEasyRampState(int channel, bool state);
 
 signals:

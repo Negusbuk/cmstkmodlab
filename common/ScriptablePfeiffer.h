@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <PfeifferModel.h>
 
@@ -35,8 +35,8 @@ public:
 
 public slots:
 
-//  QScriptValue state(unsigned int channel);
-//  QScriptValue temperature(unsigned int channel);
+//  QJSValue state(unsigned int channel);
+//  QJSValue temperature(unsigned int channel);
 
 protected:
   PfeifferModel* pfeifferModel_;

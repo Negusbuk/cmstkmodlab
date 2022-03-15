@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QScriptValue>
+#include <QJSValue>
 
 #include <CoriFlowModel.h>
 
@@ -36,7 +36,7 @@ public:
 
   public slots:
 
-  QScriptValue getTemp();
+  QJSValue getTemp();
 
   void waitForTempBelow(float temperature,
                              int timeout);
