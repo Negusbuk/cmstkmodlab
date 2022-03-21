@@ -273,7 +273,7 @@ void RohdeSchwarzNGE103BModel::updateInformation()
     std::array<float,3> newEasyRampDuration;
     std::array<bool,3> newEasyRampState;
 
-    for (unsigned int c=0;c<3;++c) {
+    for (unsigned int c=0;c<3;c++) {
       controller_->SelectChannel(c+1);
 
       std::this_thread::sleep_for(std::chrono::milliseconds(100));
