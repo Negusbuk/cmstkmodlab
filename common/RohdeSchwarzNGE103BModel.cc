@@ -71,14 +71,13 @@ void RohdeSchwarzNGE103BModel::setOutputState(int channel, bool state)
   controller_->SelectChannel(channel);
   controller_->SetOutputState(state);
 
-  outputState_[channel-1] = state;
+  // outputState_[channel-1] = state;
   
   if (easyRampState_[channel-1]) {
     QTimer::singleShot(1000*easyRampDuration_[channel-1], this,
                        SLOT(updateInformation()));
   } else {
-    QTimer::singleShot(100, this,
-                       SLOT(updateInformation()));
+    QTimer::singleShot(500, this, SLOT(updateInformation()));
   }
 }
 
@@ -111,9 +110,10 @@ void RohdeSchwarzNGE103BModel::setVoltage(int channel, float voltage)
   controller_->SelectChannel(channel);
   controller_->SetVoltage(voltage);
 
-  voltage_[channel-1] = voltage;
+  // voltage_[channel-1] = voltage;
 
-  emit informationChanged();
+  // emit informationChanged();
+  QTimer::singleShot(500, this, SLOT(updateInformation()));
 }
 
 float RohdeSchwarzNGE103BModel::getMeasuredVoltage(int channel) const
@@ -145,9 +145,10 @@ void RohdeSchwarzNGE103BModel::setCurrent(int channel, float current)
   controller_->SelectChannel(channel);
   controller_->SetCurrent(current);
 
-  current_[channel-1] = current;
+  // current_[channel-1] = current;
 
-  emit informationChanged();
+  // emit informationChanged();
+  QTimer::singleShot(500, this, SLOT(updateInformation()));
 }
 
 float RohdeSchwarzNGE103BModel::getMeasuredCurrent(int channel) const
@@ -179,9 +180,10 @@ void RohdeSchwarzNGE103BModel::setEasyRampDuration(int channel, float duration)
   controller_->SelectChannel(channel);
   controller_->SetEasyRampDuration(duration);
 
-  easyRampDuration_[channel-1] = duration;
+  // easyRampDuration_[channel-1] = duration;
 
-  emit informationChanged();
+  // emit informationChanged();
+  QTimer::singleShot(500, this, SLOT(updateInformation()));
 }
 
 bool RohdeSchwarzNGE103BModel::getEasyRampState(int channel) const
@@ -204,9 +206,10 @@ void RohdeSchwarzNGE103BModel::setEasyRampState(int channel, bool state)
   controller_->SelectChannel(channel);
   controller_->SetEasyRampState(state);
 
-  easyRampState_[channel-1] = state;
+  // easyRampState_[channel-1] = state;
 
-  emit informationChanged();
+  // emit informationChanged();
+  QTimer::singleShot(500, this, SLOT(updateInformation()));
 }
 
 /**

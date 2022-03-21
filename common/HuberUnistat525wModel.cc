@@ -49,8 +49,9 @@ void HuberUnistat525wModel::setTemperatureSetPoint(double temperature)
     if (temperatureSetPoint_!=temperature) {
 
       if (controller_->SetTemperatureSetPoint(temperature)) {
-        temperatureSetPoint_ = temperature;
-        emit informationChanged();
+        // temperatureSetPoint_ = temperature;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -68,8 +69,9 @@ void HuberUnistat525wModel::setTemperatureControlMode(bool process)
     if (temperatureControlMode_!=process) {
 
       if (controller_->SetTemperatureControlMode(process)) {
-        temperatureControlMode_ = process;
-        emit informationChanged();
+        // temperatureControlMode_ = process;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -86,8 +88,9 @@ void HuberUnistat525wModel::setTemperatureControlEnabled(bool enabled)
     if (temperatureControlEnabled_!=enabled) {
 
       if (controller_->SetTemperatureControlEnabled(enabled)) {
-        temperatureControlEnabled_ = enabled;
-        emit informationChanged();
+        // temperatureControlEnabled_ = enabled;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -105,8 +108,9 @@ void HuberUnistat525wModel::setCirculatorEnabled(bool enabled)
     if (circulatorEnabled_!=enabled) {
 
       if (controller_->SetCirculatorEnabled(enabled)) {
-        circulatorEnabled_ = enabled;
-        emit informationChanged();
+        // circulatorEnabled_ = enabled;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -159,8 +163,9 @@ void HuberUnistat525wModel::setAutoPID(bool autoPID)
     if (autoPID_!=autoPID) {
 
       if (controller_->SetAutoPID(autoPID)) {
-        autoPID_ = autoPID;
-        emit informationChanged();
+        // autoPID_ = autoPID;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -178,8 +183,9 @@ void HuberUnistat525wModel::setKpInternal(int Kp)
     if (KpInternal_!=Kp) {
 
       if (controller_->SetKpInternal(Kp)) {
-        KpInternal_ = Kp;
-        emit informationChanged();
+        // KpInternal_ = Kp;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -197,8 +203,9 @@ void HuberUnistat525wModel::setTnInternal(double Tn)
     if (TnInternal_!=Tn) {
 
       if (controller_->SetTnInternal(Tn)) {
-        TnInternal_ = Tn;
-        emit informationChanged();
+        // TnInternal_ = Tn;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -216,8 +223,9 @@ void HuberUnistat525wModel::setTvInternal(double Tv)
     if (TvInternal_!=Tv) {
 
       if (controller_->SetTvInternal(Tv)) {
-        TvInternal_ = Tv;
-        emit informationChanged();
+        // TvInternal_ = Tv;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -235,8 +243,9 @@ void HuberUnistat525wModel::setKpJacket(int Kp)
     if (KpJacket_!=Kp) {
 
       if (controller_->SetKpJacket(Kp)) {
-        KpJacket_ = Kp;
-        emit informationChanged();
+        // KpJacket_ = Kp;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -254,8 +263,9 @@ void HuberUnistat525wModel::setTnJacket(double Tn)
     if (TnJacket_!=Tn) {
 
       if (controller_->SetTnJacket(Tn)) {
-        TnJacket_ = Tn;
-        emit informationChanged();
+        // TnJacket_ = Tn;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -273,8 +283,9 @@ void HuberUnistat525wModel::setTvJacket(double Tv)
     if (TvJacket_!=Tv) {
 
       if (controller_->SetTvJacket(Tv)) {
-        TvJacket_ = Tv;
-        emit informationChanged();
+        // TvJacket_ = Tv;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -292,8 +303,9 @@ void HuberUnistat525wModel::setKpProcess(int Kp)
     if (KpProcess_!=Kp) {
 
       if (controller_->SetKpProcess(Kp)) {
-        KpProcess_ = Kp;
-        emit informationChanged();
+        // KpProcess_ = Kp;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -311,8 +323,9 @@ void HuberUnistat525wModel::setTnProcess(double Tn)
     if (TnProcess_!=Tn) {
 
       if (controller_->SetTnProcess(Tn)) {
-        TnProcess_ = Tn;
-        emit informationChanged();
+        // TnProcess_ = Tn;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -330,8 +343,9 @@ void HuberUnistat525wModel::setTvProcess(double Tv)
     if (TvProcess_!=Tv) {
 
       if (controller_->SetTvProcess(Tv)) {
-        TvProcess_ = Tv;
-        emit informationChanged();
+        // TvProcess_ = Tv;
+        // emit informationChanged();
+	QTimer::singleShot(500, this, SLOT(updateInformation()));
       }
     }
   }
@@ -422,6 +436,8 @@ void HuberUnistat525wModel::setPID(int Kp, double Tn, double Tv)
     setTnProcess(Tn);
     setTvProcess(Tv);
   }
+
+  QTimer::singleShot(500, this, SLOT(updateInformation()));
 }
 
 void HuberUnistat525wModel::initialize()
