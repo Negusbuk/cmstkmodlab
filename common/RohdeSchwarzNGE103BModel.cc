@@ -10,6 +10,9 @@
 //                                                                             //
 /////////////////////////////////////////////////////////////////////////////////
 
+#include <chrono>
+#include <thread>
+
 #include <QApplication>
 
 #include <nqlogger.h>
@@ -273,6 +276,8 @@ void RohdeSchwarzNGE103BModel::updateInformation()
     for (unsigned int c=0;c<3;++c) {
       controller_->SelectChannel(c+1);
 
+      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      
       newOutputState[c] = controller_->GetOutputState();
       newOutputMode[c] = controller_->GetOutputMode();
       newVoltage[c] = controller_->GetVoltage();
