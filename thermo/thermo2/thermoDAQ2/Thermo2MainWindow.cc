@@ -30,6 +30,7 @@
 #include "Thermo2ScriptWidget.h"
 
 #include "Thermo2ThroughPlaneWidget.h"
+#include "Thermo2TwoSThermalTestStructureWidget.h"
 
 #include "Thermo2MainWindow.h"
 
@@ -49,6 +50,7 @@ Thermo2MainWindow::Thermo2MainWindow(QWidget *parent)
   chillerAndVacuumActive_ = config->getValue<int>("ChillerAndVacuumActive");
   martaActive_ = config->getValue<int>("MartaActive");
   throughPlaneActive_ = config->getValue<int>("ThroughPlaneSetupActive");
+  two2TTSActive_ = config->getValue<int>("2STTSActive");
 
   huberModel_ = 0;
   if (chillerAndVacuumActive_) {
@@ -115,6 +117,12 @@ Thermo2MainWindow::Thermo2MainWindow(QWidget *parent)
     throughPlaneModel_ = new Thermo2ThroughPlaneModel(huberModel_,
         nge103BModel_,
         keithleyModel_,
+        this);
+  }
+
+  twoSTTSModel_ = 0;
+  if (two2TTSActive_) {
+    twoSTTSModel_ = new Thermo2TwoSThermalTestStructureModel(keithleyModel_,
         this);
   }
 
@@ -230,6 +238,13 @@ Thermo2MainWindow::Thermo2MainWindow(QWidget *parent)
   	tabWidget_->addTab(throughPlaneWidget, "Through Plane");
   }
 
+  if (two2TTSActive_) {
+    // 2S THERMAL TEST STRUCTURE MODEL
+    Thermo2TwoSThermalTestStructureWidget* two2TTSWidget = new Thermo2TwoSThermalTestStructureWidget(twoSTTSModel_);
+    two2TTSWidget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    tabWidget_->addTab(two2TTSWidget, "2S TTS");
+  }
+
   widget = new QWidget();
   widget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
   vlayout = new QVBoxLayout();
@@ -273,9 +288,9 @@ void Thermo2MainWindow::quit()
 void Thermo2MainWindow::controlStateChanged(bool state)
 {
   huberWidget_->controlStateChanged(state);
-  if (martaModel_) martaWidget_->controlStateChanged(state);  
-  agilentWidget_->controlStateChanged(state);  
-  leyboldWidget_->controlStateChanged(state);  
-  nge103BWidget_->controlStateChanged(state);  
-  keithleyWidget_->controlStateChanged(state);  
+  if (martaModel_) martaWidget_->controlStateChanged(state);
+  agilentWidget_->controlStateChanged(state);
+  leyboldWidget_->controlStateChanged(state);
+  nge103BWidget_->controlStateChanged(state);
+  keithleyWidget_->controlStateChanged(state);
 }

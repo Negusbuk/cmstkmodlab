@@ -38,6 +38,7 @@
 #include "Thermo2DAQServer.h"
 #include "Thermo2ScriptModel.h"
 #include "Thermo2ThroughPlaneModel.h"
+#include "Thermo2TwoSThermalTestStructureModel.h"
 
 #include "ApplicationConfigViewer.h"
 
@@ -61,6 +62,7 @@ protected:
   bool chillerAndVacuumActive_;
   bool martaActive_;
   bool throughPlaneActive_;
+  bool two2TTSActive_;
 
   HuberUnistat525wModel* huberModel_;
   MartaModel* martaModel_;
@@ -84,6 +86,7 @@ protected:
   Thermo2ScriptModel* scriptModel_;
 
   Thermo2ThroughPlaneModel* throughPlaneModel_;
+  Thermo2TwoSThermalTestStructureModel* twoSTTSModel_;
 
   ApplicationConfigViewer* configViewer_;
 };

@@ -14,6 +14,7 @@ KeithleyDAQ6510Device                  /dev/usbtmc0
 ChillerAndVacuumActive                 1
 MartaActive                            0
 ThroughPlaneSetupActive                1
+2STTSActive                            1
 
 #
 # Data Storage
@@ -73,3 +74,10 @@ ThroughPlaneKeithleyBottomCor0         +1.031536e-02 -2.937237e-02 +5.379875e-02
 ThroughPlaneKeithleyBottomCor1         +9.979621e-01 +1.000199e+00 +9.988582e-01 +9.998310e-01 +1.002932e+00 +9.993718e-01 
 ThroughPlaneKeithleyBottomCor2         -1.655805e-05 +2.156900e-05 +1.888039e-05 -2.684960e-05 -2.272911e-05 +2.119618e-05 
 ThroughPlaneKeithleyBottomCor3         0.0 0.0 0.0 0.0 0.0 0.0 
+
+#
+# 2S Thermal Test Structure
+#
+2STTSAutoConfig                        0      # Automatically configure Keithley channels on startup
+2STTSMattermostStatus                  0      # Send status messages via Mattermost
+2STTSMattermostInterval                30     # Interval between mattermost status updates in minutes

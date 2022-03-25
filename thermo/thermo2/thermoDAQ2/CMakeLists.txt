@@ -18,6 +18,8 @@ add_executable(thermoDAQ2
         Thermo2ScriptableGlobals.cc
         Thermo2ThroughPlaneModel.cc
         Thermo2ThroughPlaneWidget.cc
+        Thermo2TwoSThermalTestStructureModel.cc
+        Thermo2TwoSThermalTestStructureWidget.cc
         ScriptableThermo2ThroughPlane.cc
         Thermo2CommunicationServer.cc
         Thermo2CommunicationThread.cc

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////
 //                                                                             //
-//               Copyright (C) 2011-2021 - The DESY CMS Group                  //
+//               Copyright (C) 2011-2022 - The DESY CMS Group                  //
 //                           All rights reserved                               //
 //                                                                             //
 //      The CMStkModLab source code is licensed under the GNU GPL v3.0.        //
@@ -10,8 +10,8 @@
 //                                                                             //
 /////////////////////////////////////////////////////////////////////////////////
 
-#ifndef THERMO2THROUGHPLANEWIDGET_H
-#define THERMO2THROUGHPLANEWIDGET_H
+#ifndef THERMAL2TWOSTHERMALTESTSTRUCTUREWIDGET_H
+#define THERMAL2TWOSTHERMALTESTSTRUCTUREWIDGET_H
 
 #include <QCheckBox>
 #include <QRadioButton>
@@ -29,15 +29,15 @@
 #include <QDialog>
 #include <QTextEdit>
 
-#include "Thermo2ThroughPlaneModel.h"
+#include "Thermo2TwoSThermalTestStructureModel.h"
 
-class ThroughPlaneSVGWidget : public QSvgWidget
+class TwoSThermalTestStructureSVGWidget : public QSvgWidget
 {
   Q_OBJECT
  public:
 
-  ThroughPlaneSVGWidget(QWidget* parent = 0);
-  virtual ~ThroughPlaneSVGWidget() { }
+  TwoSThermalTestStructureSVGWidget(QWidget* parent = 0);
+  virtual ~TwoSThermalTestStructureSVGWidget() { }
   virtual int heightForWidth(int) const;
   virtual int widthForHeight(int) const;
   
@@ -51,20 +51,20 @@ class ThroughPlaneSVGWidget : public QSvgWidget
 
 };
 
-class Thermo2ThroughPlaneWidget : public QWidget
+class Thermo2TwoSThermalTestStructureWidget : public QWidget
 {
   Q_OBJECT
  public:
 
-  explicit Thermo2ThroughPlaneWidget(Thermo2ThroughPlaneModel* model,
-		  QWidget *parent = 0);
+  explicit Thermo2TwoSThermalTestStructureWidget(Thermo2TwoSThermalTestStructureModel* model,
+      QWidget *parent = 0);
 
  protected:
 
-  Thermo2ThroughPlaneModel* model_;
+  Thermo2TwoSThermalTestStructureModel* model_;
 
   QCheckBox* mattermostStatus_;
-  ThroughPlaneSVGWidget* svgWidget_;
+  TwoSThermalTestStructureSVGWidget* svgWidget_;
   
  public slots:
 
@@ -75,4 +75,4 @@ class Thermo2ThroughPlaneWidget : public QWidget
 
 };
 
-#endif // THERMO2THROUGHPLANEWIDGET_H
+#endif // THERMAL2TWOSTHERMALTESTSTRUCTUREWIDGET_H
