@@ -50,3 +50,10 @@ target_link_libraries (testHistoryFifo
 	PRIVATE Qt5::Widgets
 	PRIVATE Common
 )
+
+add_executable(test3D test3D.cc)
+target_link_libraries (test3D
+	PRIVATE Qt5::Core
+	PRIVATE Qt5::Widgets
+	PRIVATE Common
+)
