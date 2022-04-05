@@ -28,15 +28,6 @@ int main(int argc, char ** argv)
     config->append(std::string(Config::CMSTkModLabBasePath) + "/common_test/test1.cfg", "test1");
     config->append(std::string(Config::CMSTkModLabBasePath) + "/common_test/test2.cfg", "test2");
 
-    const ApplicationConfig::storage_t& kvmap = config->getKeyValueMap();
-    for (auto & kv : kvmap) {
-      std::cout << kv.first.alias << "." << kv.first.key << ":";
-      for (auto & v : kv.second) {
-        std::cout << " " << v;
-      }
-      std::cout << std::endl;
-    }
-
     std::vector<int> integer1{ 1, 2, 3, 4 };
     double double1 = 1.2;
     std::vector<int> integer2{ 5, 6, 7, 8 };
@@ -82,6 +73,30 @@ int main(int argc, char ** argv)
       std::cout << "double2   " << double2c << std::endl;
 
       return 1;
+    }
+
+    double doubleTemp1 = config->getDefaultValue<double>("test3", "double3", 12.35);
+
+    bool hasKeyTemp1 = config->hasKey("test3", "double3");
+    if (!hasKeyTemp1) {
+      std::cout << "\ngetDefaultValue did not create temporary key\n" << std::endl;
+      return 1;
+    }
+
+    double doubleTemp2 = config->getValue<double>("test3", "double3");
+    if (doubleTemp1!=doubleTemp2) {
+      std::cout << "\ntemporary key value pair was not properly stored (value mismatch).\n" << std::endl;
+      return 1;
+    }
+
+    const ApplicationConfig::storage_t& kvmap = config->getKeyValueMap();
+    for (auto & kv : kvmap) {
+      std::cout << kv.first.alias << "." << kv.first.key << ":";
+      for (auto & v : kv.second) {
+        std::cout << " " << v;
+      }
+      if (kv.first.isTemporary) std::cout << " (temporary)";
+      std::cout << std::endl;
     }
   }
 
