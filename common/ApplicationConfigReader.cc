@@ -66,8 +66,9 @@ void ApplicationConfigReader::fill(ApplicationConfig::storage_t &keyvalueMap)
       Values.push_back(Value);
     }
 
-    ApplicationConfig::FullKey fk = { filename_, alias_, Key };
+    ApplicationConfig::FullKey fk = { false, filename_, alias_, Key };
     keyvalueMap[fk] = Values;
+    fk.isTemporary = true;
     fk.filename = "*";
     fk.alias = "*";
     auto search = keyvalueMap.find(fk);

@@ -38,6 +38,7 @@ class ApplicationConfig : public QObject
 public:
   
   struct FullKey {
+    bool isTemporary;
     std::string filename;
     std::string alias;
     std::string key;
@@ -221,20 +222,26 @@ public:
   }
 
   template <class aType>
-  aType getDefaultValue(const ShortKey& sk, aType defaultValue) const
+  aType getDefaultValue(const ShortKey& sk, aType defaultValue)
   {
     aType returnValue = defaultValue;
     storage_t::const_iterator it = keyvalueMap_.find(sk);
     if (it!=keyvalueMap_.end()) {
       std::istringstream iss(it->second.front().c_str(), std::istringstream::in);
       iss >> returnValue;
+    } else {
+      QVariant variant(returnValue);
+      std::vector<std::string> values;
+      values.push_back(variant.toString().toStdString());
+      FullKey fk = { true, "*", sk.alias, sk.key };
+      keyvalueMap_[fk] = values;
     }
     return returnValue;
   }
   
   template <class aType>
   [[deprecated("Use getDefaultValue(const ShortKey& sk, aType defaultValue) or getDefaultValue(const std::string& alias, const std::string& key, aType defaultValue) instead.")]]
-  aType getDefaultValue(const std::string& key, aType defaultValue) const
+  aType getDefaultValue(const std::string& key, aType defaultValue)
   {
     aType returnValue = defaultValue;
     ShortKey sk = { "*", key };
@@ -242,12 +249,18 @@ public:
     if (it!=keyvalueMap_.end()) {
       std::istringstream iss(it->second.front().c_str(), std::istringstream::in);
       iss >> returnValue;
+    } else {
+      QVariant variant(returnValue);
+      std::vector<std::string> values;
+      values.push_back(variant.toString().toStdString());
+      FullKey fk = { true, "*", "*", key };
+      keyvalueMap_[fk] = values;
     }
     return returnValue;
   }
   
   template <class aType>
-  aType getDefaultValue(const std::string& alias, const std::string& key, aType defaultValue) const
+  aType getDefaultValue(const std::string& alias, const std::string& key, aType defaultValue)
   {
     aType returnValue = defaultValue;
     ShortKey sk = { alias, key };
@@ -255,6 +268,12 @@ public:
     if (it!=keyvalueMap_.end()) {
       std::istringstream iss(it->second.front().c_str(), std::istringstream::in);
       iss >> returnValue;
+    } else {
+      QVariant variant(returnValue);
+      std::vector<std::string> values;
+      values.push_back(variant.toString().toStdString());
+      FullKey fk = { true, "*", alias, key };
+      keyvalueMap_[fk] = values;
     }
     return returnValue;
   }
@@ -370,32 +389,47 @@ public:
     return returnVector;
   }
 
-  std::string getDefaultValue(const ShortKey& sk, std::string defaultValue) const
+  std::string getDefaultValue(const ShortKey& sk, std::string defaultValue)
   {
     storage_t::const_iterator it = keyvalueMap_.find(sk);
     if (it!=keyvalueMap_.end()) {
-      return it->second.front();
+      returnValue = it->second.front();
+    } else {
+      std::vector<std::string> values;
+      values.push_back(returnValue);
+      FullKey fk = { true, "*", sk.alias, sk.key };
+      keyvalueMap_[fk] = values;
     }
     return defaultValue;
   }
 
   [[deprecated("Use getDefaultValue(const ShortKey& sk, std::string defaultValue) or getDefaultValue(const std::string& alias, const std::string& key, std::string defaultValue) instead.")]]
-  std::string getDefaultValue(const std::string& key, std::string defaultValue) const
+  std::string getDefaultValue(const std::string& key, std::string defaultValue)
   {
     ShortKey sk = { "*", key };
     storage_t::const_iterator it = keyvalueMap_.find(sk);
     if (it!=keyvalueMap_.end()) {
-      return it->second.front();
+      returnValue = it->second.front();
+    } else {
+      std::vector<std::string> values;
+      values.push_back(returnValue);
+      FullKey fk = { true, "*", "*", sk.key };
+      keyvalueMap_[fk] = values;
     }
     return defaultValue;
   }
 
-  std::string getDefaultValue(const std::string& alias, const std::string& key, std::string defaultValue) const
+  std::string getDefaultValue(const std::string& alias, const std::string& key, std::string defaultValue)
   {
     ShortKey sk = { alias, key };
     storage_t::const_iterator it = keyvalueMap_.find(sk);
     if (it!=keyvalueMap_.end()) {
-      return it->second.front();
+      returnValue = it->second.front();
+    } else {
+      std::vector<std::string> values;
+      values.push_back(returnValue);
+      FullKey fk = { true, "*", alias, key };
+      keyvalueMap_[fk] = values;    
     }
     return defaultValue;
   }
@@ -540,12 +574,12 @@ template <>
 std::vector<std::string> ApplicationConfig::getValueVector(const std::string& alias, const std::string& key) const;
 
 template <>
-std::string ApplicationConfig::getDefaultValue(const ApplicationConfig::ShortKey& sk, std::string defaultValue) const;
+std::string ApplicationConfig::getDefaultValue(const ApplicationConfig::ShortKey& sk, std::string defaultValue);
 template <>
 [[deprecated("Use getDefaultValue(const ShortKey& sk, std::string defaultValue) or getDefaultValue(const std::string& alias, const std::string& key, std::string defaultValue) instead.")]]
-std::string ApplicationConfig::getDefaultValue(const std::string& key, std::string defaultValue) const;
+std::string ApplicationConfig::getDefaultValue(const std::string& key, std::string defaultValue);
 template <>
-std::string ApplicationConfig::getDefaultValue(const std::string& alias, const std::string& key, std::string defaultValue) const;
+std::string ApplicationConfig::getDefaultValue(const std::string& alias, const std::string& key, std::string defaultValue);
 
 template <>
 int ApplicationConfig::getValue(const ApplicationConfig::ShortKey& sk) const;
@@ -564,12 +598,12 @@ template <>
 std::vector<int> ApplicationConfig::getValueVector(const std::string& alias, const std::string& key) const;
 
 template <>
-int ApplicationConfig::getDefaultValue(const ApplicationConfig::ShortKey& sk, int defaultValue) const;
+int ApplicationConfig::getDefaultValue(const ApplicationConfig::ShortKey& sk, int defaultValue);
 template <>
 [[deprecated("Use getDefaultValue(const ShortKey& sk, int defaultValue) or getDefaultValue(const std::string& alias, const std::string& key, int defaultValue) instead.")]]
-int ApplicationConfig::getDefaultValue(const std::string& key, int defaultValue) const;
+int ApplicationConfig::getDefaultValue(const std::string& key, int defaultValue);
 template <>
-int ApplicationConfig::getDefaultValue(const std::string& alias, const std::string& key, int defaultValue) const;
+int ApplicationConfig::getDefaultValue(const std::string& alias, const std::string& key, int defaultValue);
 
 template <>
 unsigned int ApplicationConfig::getValue(const ApplicationConfig::ShortKey& sk) const;
@@ -588,12 +622,12 @@ template <>
 std::vector<unsigned int> ApplicationConfig::getValueVector(const std::string& alias, const std::string& key) const;
 
 template <>
-unsigned int ApplicationConfig::getDefaultValue(const ApplicationConfig::ShortKey& sk, unsigned int defaultValue) const;
+unsigned int ApplicationConfig::getDefaultValue(const ApplicationConfig::ShortKey& sk, unsigned int defaultValue);
 template <>
 [[deprecated("Use getDefaultValue(const ShortKey& sk, unsigned int defaultValue) or getDefaultValue(const std::string& alias, const std::string& key, unsigned int defaultValue) instead.")]]
-unsigned int ApplicationConfig::getDefaultValue(const std::string& key, unsigned int defaultValue) const;
+unsigned int ApplicationConfig::getDefaultValue(const std::string& key, unsigned int defaultValue);
 template <>
-unsigned int ApplicationConfig::getDefaultValue(const std::string& alias, const std::string& key, unsigned int defaultValue) const;
+unsigned int ApplicationConfig::getDefaultValue(const std::string& alias, const std::string& key, unsigned int defaultValue);
 
 template <>
 void ApplicationConfig::setValue(const ApplicationConfig::ShortKey& sk, std::string value);

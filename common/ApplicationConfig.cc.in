@@ -86,7 +86,7 @@ void ApplicationConfig::save()
 {
   std::map<std::string,std::string> filemap;
   for (const auto & kv : keyvalueMap_) {
-  	if (kv.first.alias=="*") continue;
+  	if (kv.first.isTemporary || kv.first.alias=="*") continue;
   	filemap[kv.first.filename] = kv.first.alias;
   }
 
@@ -105,7 +105,7 @@ void ApplicationConfig::saveAs(const std::string& filename, const std::string& a
   fk.alias = alias;
   
   for (const auto & kv : keyvalueMap_) {
-  	if (kv.first.alias!="*") continue;
+  	if (kv.first.isTemporary || kv.first.alias!="*") continue;
 
   	fk.key = kv.first.key;
   	tempKeyValueMap[fk] = kv.second;
@@ -115,8 +115,9 @@ void ApplicationConfig::saveAs(const std::string& filename, const std::string& a
   writer.write(tempKeyValueMap);
   
   for (const auto & kv : tempKeyValueMap) {
-  	if (kv.first.alias!="*") continue;
+  	if (kv.first.isTemporary || kv.first.alias!="*") continue;
 
+	fk.isTemporary = true;
 	fk.filename = "*";
   	fk.alias = "*";
   	fk.key = kv.first.key;
@@ -220,23 +221,33 @@ std::vector<std::string> ApplicationConfig::getValueVector(const std::string& al
 
 template <>
 std::string ApplicationConfig::getDefaultValue(const ApplicationConfig::ShortKey& sk,
-    std::string defaultValue) const
+    std::string defaultValue)
 {
   storage_t::const_iterator it = keyvalueMap_.find(sk);
   if (it!=keyvalueMap_.end()) {
     return it->second.front();
+  } else {
+    std::vector<std::string> values;
+    values.push_back(defaultValue);
+    FullKey fk = { true, "*", sk.alias, sk.key };
+    keyvalueMap_[fk] = values;
   }
   return defaultValue;
 }
 
 template <>
 std::string ApplicationConfig::getDefaultValue(const std::string& key,
-    std::string defaultValue) const
+    std::string defaultValue)
 {
   ShortKey sk = { "*", key };
   storage_t::const_iterator it = keyvalueMap_.find(sk);
   if (it!=keyvalueMap_.end()) {
     return it->second.front();
+  } else {
+    std::vector<std::string> values;
+    values.push_back(defaultValue);
+    FullKey fk = { true, "*", "*", key };
+    keyvalueMap_[fk] = values;  
   }
   return defaultValue;
 }
@@ -244,12 +255,17 @@ std::string ApplicationConfig::getDefaultValue(const std::string& key,
 template <>
 std::string ApplicationConfig::getDefaultValue(const std::string& alias,
     const std::string& key,
-    std::string defaultValue) const
+    std::string defaultValue)
 {
   ShortKey sk = { alias, key };
   storage_t::const_iterator it = keyvalueMap_.find(sk);
   if (it!=keyvalueMap_.end()) {
     return it->second.front();
+  } else {
+    std::vector<std::string> values;
+    values.push_back(defaultValue);
+    FullKey fk = { true, "*", alias, key };
+    keyvalueMap_[fk] = values;
   }
   return defaultValue;
 }
@@ -358,20 +374,26 @@ std::vector<int> ApplicationConfig::getValueVector(const std::string& alias,
 
 template <>
 int ApplicationConfig::getDefaultValue(const ApplicationConfig::ShortKey& sk,
-    int defaultValue) const
+    int defaultValue)
 {
   int returnValue = defaultValue;
   storage_t::const_iterator it = keyvalueMap_.find(sk);
   if (it!=keyvalueMap_.end()) {
     std::istringstream iss(it->second.front().c_str(), std::istringstream::in);
     iss >> std::setbase(0) >> returnValue;
+  } else {
+    QVariant variant(returnValue);
+    std::vector<std::string> values;
+    values.push_back(variant.toString().toStdString());
+    FullKey fk = { true, "*", sk.alias, sk.key };
+    keyvalueMap_[fk] = values;
   }
   return returnValue;
 }
 
 template <>
 int ApplicationConfig::getDefaultValue(const std::string& key,
-    int defaultValue) const
+    int defaultValue)
 {
   int returnValue = defaultValue;
   ShortKey sk = { "*", key };
@@ -379,6 +401,12 @@ int ApplicationConfig::getDefaultValue(const std::string& key,
   if (it!=keyvalueMap_.end()) {
     std::istringstream iss(it->second.front().c_str(), std::istringstream::in);
     iss >> std::setbase(0) >> returnValue;
+  } else {
+    QVariant variant(returnValue);
+    std::vector<std::string> values;
+    values.push_back(variant.toString().toStdString());
+    FullKey fk = { true, "*", "*", key };
+    keyvalueMap_[fk] = values;  
   }
   return returnValue;
 }
@@ -386,7 +414,7 @@ int ApplicationConfig::getDefaultValue(const std::string& key,
 template <>
 int ApplicationConfig::getDefaultValue(const std::string& alias,
     std::string const& key,
-    int defaultValue) const
+    int defaultValue)
 {
   int returnValue = defaultValue;
   ShortKey sk = { alias, key };
@@ -394,6 +422,12 @@ int ApplicationConfig::getDefaultValue(const std::string& alias,
   if (it!=keyvalueMap_.end()) {
     std::istringstream iss(it->second.front().c_str(), std::istringstream::in);
     iss >> std::setbase(0) >> returnValue;
+  } else {
+    QVariant variant(returnValue);
+    std::vector<std::string> values;
+    values.push_back(variant.toString().toStdString());
+    FullKey fk = { true, "*", alias, key };
+    keyvalueMap_[fk] = values;  
   }
   return returnValue;
 }
@@ -502,20 +536,26 @@ std::vector<unsigned int> ApplicationConfig::getValueVector(const std::string& a
 
 template <>
 unsigned int ApplicationConfig::getDefaultValue(const ApplicationConfig::ShortKey& sk,
-    unsigned int defaultValue) const
+    unsigned int defaultValue)
 {
   unsigned int returnValue = defaultValue;
   storage_t::const_iterator it = keyvalueMap_.find(sk);
   if (it!=keyvalueMap_.end()) {
     std::istringstream iss(it->second.front().c_str(), std::istringstream::in);
     iss >> std::setbase(0) >> returnValue;
+  } else {
+    QVariant variant(returnValue);
+    std::vector<std::string> values;
+    values.push_back(variant.toString().toStdString());
+    FullKey fk = { true, "*", sk.alias, sk.key };
+    keyvalueMap_[fk] = values;
   }
   return returnValue;
 }
 
 template <>
 unsigned int ApplicationConfig::getDefaultValue(const std::string& key,
-    unsigned int defaultValue) const
+    unsigned int defaultValue)
 {
   unsigned int returnValue = defaultValue;
   ShortKey sk = { "*", key };
@@ -523,6 +563,12 @@ unsigned int ApplicationConfig::getDefaultValue(const std::string& key,
   if (it!=keyvalueMap_.end()) {
     std::istringstream iss(it->second.front().c_str(), std::istringstream::in);
     iss >> std::setbase(0) >> returnValue;
+  } else {
+    QVariant variant(returnValue);
+    std::vector<std::string> values;
+    values.push_back(variant.toString().toStdString());
+    FullKey fk = { true, "*", "*", key };
+    keyvalueMap_[fk] = values;
   }
   return returnValue;
 }
@@ -530,7 +576,7 @@ unsigned int ApplicationConfig::getDefaultValue(const std::string& key,
 template <>
 unsigned int ApplicationConfig::getDefaultValue(const std::string& alias,
     std::string const& key,
-    unsigned int defaultValue) const
+    unsigned int defaultValue)
 {
   unsigned int returnValue = defaultValue;
   ShortKey sk = { alias, key };
@@ -538,6 +584,12 @@ unsigned int ApplicationConfig::getDefaultValue(const std::string& alias,
   if (it!=keyvalueMap_.end()) {
     std::istringstream iss(it->second.front().c_str(), std::istringstream::in);
     iss >> std::setbase(0) >> returnValue;
+  } else {
+    QVariant variant(returnValue);
+    std::vector<std::string> values;
+    values.push_back(variant.toString().toStdString());
+    FullKey fk = { true, "*", alias, key };
+    keyvalueMap_[fk] = values;
   }
   return returnValue;
 }
