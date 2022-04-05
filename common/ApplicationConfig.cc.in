@@ -19,14 +19,11 @@ const std::string Config::CMSTkModLabBasePath("@basepath@");
 
 bool operator<(const ApplicationConfig::FullKey& k1, const ApplicationConfig::FullKey& k2)
 {
-  if (k1.filename == k2.filename) {
-    if (k1.alias == k2.alias) {
-      return k1.key < k2.key;
-    } else {
-      return k1.alias < k2.alias;
-    }
+  if (k1.alias == k2.alias) {
+    return k1.key < k2.key;
+  } else {
+    return k1.alias < k2.alias;
   }
-  return k1.filename < k2.filename;
 }
 
 bool operator<(const ApplicationConfig::FullKey& fk, const ApplicationConfig::ShortKey& sk)
@@ -175,6 +172,45 @@ std::string ApplicationConfig::getValue(const std::string& alias,
     issueKeyError(sk);
   }
   return std::string();
+}
+
+template <>
+QString ApplicationConfig::getValue(const ApplicationConfig::ShortKey& sk) const
+{
+  storage_t::const_iterator it = keyvalueMap_.find(sk);
+  if (it!=keyvalueMap_.end()) {
+    return QString(it->second.front().c_str());
+  } else {
+    issueKeyError(sk);
+  }
+  return QString();
+}
+
+template <>
+QString ApplicationConfig::getValue(const std::string& key) const
+{
+  ShortKey sk = { "*", key };
+  storage_t::const_iterator it = keyvalueMap_.find(sk);
+  if (it!=keyvalueMap_.end()) {
+    return QString(it->second.front().c_str());
+  } else {
+    issueKeyError(sk);
+  }
+  return QString();
+}
+
+template <>
+QString ApplicationConfig::getValue(const std::string& alias,
+    const std::string& key) const
+{
+  ShortKey sk = { alias, key };
+  storage_t::const_iterator it = keyvalueMap_.find(sk);
+  if (it!=keyvalueMap_.end()) {
+    return QString(it->second.front().c_str());
+  } else {
+    issueKeyError(sk);
+  }
+  return QString();
 }
 
 template <>
