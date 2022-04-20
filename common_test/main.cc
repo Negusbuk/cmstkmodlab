@@ -44,12 +44,17 @@ int main(int argc, char ** argv)
   NQLogger::instance()->addActiveModule("*");
   NQLogger::instance()->addDestiniation(stdout, NQLog::Debug);
 
+<<<<<<< HEAD
+=======
+  /*
+>>>>>>> master
   {
     QApplication app(argc, argv);
 
     app.setStyle("cleanlooks");
 
-    ApplicationConfig * config = ApplicationConfig::instance(std::string(Config::CMSTkModLabBasePath) + "/thermo/thermo2/thermo2.cfg");
+    ApplicationConfig * config = ApplicationConfig::instance();
+    config->append(std::string(Config::CMSTkModLabBasePath) + "/thermo/thermo2/thermo2.cfg", "main");
 
     CommonTestMainWindow mainWindow;
 
@@ -66,6 +71,98 @@ int main(int argc, char ** argv)
   }
   */
   
+<<<<<<< HEAD
+=======
+  /*
+  {
+    double f = 50.0;
+    double gamma = imageScale(f);
+    double imageDistance = f * (gamma + 1.0);
+    double objectDistance = imageDistance / gamma;
+
+    NVector3D height1(0., 0., 1720.); // HEIGHT1
+    NVector3D height2(0., 0., 150.);  // HEIGHT2
+    NVector3D distance(0., -1.0*437., 0.); // DISTANCE
+    double angle1 = 20.9 * M_PI / 180.;
+    double angle2 = 16.2 * M_PI / 180.;
+    double angle3 =  0.4 * M_PI / 180.;
+
+    distance.print();
+    distance.rotateX(angle2);
+    distance.print();
+
+    std::cout << std::endl;
+
+    NPoint3D cameraPoint(0., 0., 0.);
+    cameraPoint.print();
+    cameraPoint.move(height1);
+    cameraPoint.move(distance);
+    cameraPoint.print();
+
+    std::cout << std::endl;
+
+    NPoint3D objectPoint(0., 0., 0.);
+    objectPoint.move(height2);
+    NDirection3D objectNormal(0., 0., 1.);
+    NPlane3D objectPlane(objectPoint, objectNormal);
+
+    NDirection3D centerRayDirection(0., 0., -1.);
+    centerRayDirection.print();
+    centerRayDirection.rotateX(angle2 + angle3);
+    centerRayDirection.print();
+
+    std::cout << std::endl;
+
+    NLine3D centerRay(cameraPoint, centerRayDirection);
+    objectPoint.print();
+    centerRay.intersection(objectPlane, objectPoint);
+    objectPoint.print();
+
+    std::cout << std::endl;
+
+    NVector3D imageDistanceVector(objectPoint, cameraPoint);
+    imageDistanceVector.print();
+    imageDistanceVector *= objectDistance / imageDistanceVector.length();
+    imageDistanceVector.print();
+
+    std::cout << std::endl;
+
+    NPoint3D imagePoint(objectPoint);
+    imagePoint.print();
+    imagePoint.move(imageDistanceVector);
+    imagePoint.print();
+
+    std::cout << std::endl;
+
+    NPoint3D gridPoint(0., 0., 0.);
+    gridPoint.move(height1);
+
+    NDirection3D gridNormal(0., 0., -1.);
+    gridNormal.print();
+    gridNormal.rotateX(-angle1);
+    gridNormal.print();
+
+    std::cout << std::endl;
+
+    NPlane3D gridPlane(gridPoint, gridNormal);
+
+    NPoint3D objectIntersection;
+    NPoint3D gridIntersection;
+    NDirection3D imageBeamDirection(0., 0., -1.);
+    imageBeamDirection.rotateX(angle2 + angle3);
+    NLine3D imageBeam(imagePoint, imageBeamDirection);
+    imageBeam.intersection(objectPlane, objectIntersection);
+
+    NDirection3D gridBeamDirection(imageBeamDirection);
+    gridBeamDirection.rotateZ(M_PI);
+    NLine3D gridBeam(objectIntersection, gridBeamDirection);
+    gridBeam.intersection(gridPlane, gridIntersection);
+
+    objectIntersection.print();
+    gridIntersection.print();
+  }
+  */
+>>>>>>> master
 
   /*
   {
@@ -283,6 +380,18 @@ int main(int argc, char ** argv)
     MattermostBot bot("test", "cmstkmodlab");
 
     bot.postMessage("message from cmstkmodlab");
+  }
+  */
+
+  /*
+  {
+    ApplicationConfig * config = ApplicationConfig::instance();
+
+    config->append("test1.cfg", "test1");
+    config->append("test2.cfg", "test2");
+
+    config->save();
+    config->saveAs("testout.cfg", "test");
   }
   */
 }

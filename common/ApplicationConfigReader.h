@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////
 //                                                                             //
-//               Copyright (C) 2011-2017 - The DESY CMS Group                  //
+//               Copyright (C) 2011-2022 - The DESY CMS Group                  //
 //                           All rights reserved                               //
 //                                                                             //
 //      The CMStkModLab source code is licensed under the GNU GPL v3.0.        //
@@ -31,16 +31,19 @@ class ApplicationConfigReader : public QObject
   Q_OBJECT
 
 public:
-  ApplicationConfigReader( const std::string & filename );
+  ApplicationConfigReader( const std::string & filename,
+      const std::string& alias);
   ~ApplicationConfigReader();
 
-  void fill(ApplicationConfig::storage_t &keyvalueMap,
-      ApplicationConfig::configfile_t &configFileKeyMap);
-  std::string getFileName( void ) { return inputFileName_; }
+  void fill(ApplicationConfig::storage_t &keyvalueMap);
+
+  const std::string& getFileName( void ) const { return filename_; }
+  const std::string& getAlias( void ) const { return alias_; }
 
 private:
 
-  std::string inputFileName_;
+  std::string filename_;
+  std::string alias_;
 };
 
 /** @} */

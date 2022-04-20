@@ -14,10 +14,10 @@
 #include <ApplicationConfig.h>
 
 #include <AssemblySmartMotionManager.h>
-#include <AssemblyParameters.h>
 #include <AssemblyUtilities.h>
 
 #include <QMessageBox>
+#include <QPushButton>
 
 #include <cmath>
 
@@ -48,7 +48,7 @@ AssemblySmartMotionManager::AssemblySmartMotionManager(const LStepExpressMotionM
     assembly::kill_application(tr("[AssemblySmartMotionManager]"), tr("Null pointer to ApplicationConfig. Aborting Application."));
   }
 
-  const std::string smartMove_steps_dZ_str = config->getValue<std::string>("AssemblySmartMotionManager_steps_dZ", "");
+  const std::string smartMove_steps_dZ_str = config->getDefaultValue<std::string>("main", "AssemblySmartMotionManager_steps_dZ", "");
 
   const QStringList smartMove_steps_dZ_strlist = QString::fromStdString(smartMove_steps_dZ_str).split(",");
 
@@ -214,7 +214,7 @@ void AssemblySmartMotionManager::smartMove_window(const LStepExpressMotion& moti
   QPushButton* moveButton = msgBox.addButton(tr("Apply Movement") , QMessageBox::ActionRole);
   QPushButton* stopButton = msgBox.addButton(tr("Motion Finished"), QMessageBox::ActionRole);
 
-  msgBox.setDefaultButton(stopButton);
+  msgBox.setDefaultButton(moveButton);
 
   msgBox.exec();
 
