@@ -7,6 +7,9 @@ CMakeCache.txt
 cmake_install.cmake
 *_autogen
 
+CTestTestfile.cmake
+Testing
+
 tkmodlabenv.csh
 tkmodlabenv.sh
 .cproject
@@ -18,3 +21,6 @@ html/
 .orig
 doxygen
 
+build/
+bin/
+lib/

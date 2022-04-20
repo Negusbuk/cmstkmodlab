@@ -27,6 +27,29 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 set(basepath ${PROJECT_SOURCE_DIR})
 
+# Configure the installation prefix to allow both local as system-wide installation
+IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    SET(CMAKE_INSTALL_PREFIX
+        "${PROJECT_SOURCE_DIR}"
+        CACHE PATH "Prefix prepended to install directories" FORCE)
+ENDIF()
+
+# Set up the RPATH so executables find the libraries even when installed in non-default location
+SET(CMAKE_MACOSX_RPATH TRUE)
+SET(CMAKE_SKIP_BUILD_RPATH FALSE)
+SET(CMAKE_SKIP_INSTALL_RPATH FALSE)
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+SET(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_FULL_LIBDIR})
+
+# Add the automatically determined parts of the RPATH which point to directories outside the build tree to the install RPATH
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+# The RPATH to be used when installing, but only if it's not a system directory
+LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" IsSystemDir)
+IF("${IsSystemDir}" STREQUAL "-1")
+    SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib:${CMAKE_SOURCE_DIR}/devices/lib:${CMAKE_SOURCE_DIR}/external/lib")
+ENDIF("${IsSystemDir}" STREQUAL "-1")
+
 find_package(PkgConfig REQUIRED)
 
 add_compile_definitions(__${CMAKE_HOST_SYSTEM_NAME}__)
@@ -59,9 +82,9 @@ find_package(CURL)
 if(CURL_FOUND)
         INCLUDE_DIRECTORIES(${CURL_INCLUDE_DIR})
         message(STATUS "Found libcurl")
-else()
+else(CURL_FOUND)
         MESSAGE(FATAL_ERROR "Could not find the CURL library and development files.")
-endif()
+endif(CURL_FOUND)
 
 set(CMAKE_AUTOMOC ON)
 
@@ -69,13 +92,9 @@ find_package(Qt5 COMPONENTS Core Gui Widgets OpenGL Script Qml Xml Svg Network C
 
 set(ENV{ROOT_DIR} ENV{ROOTSYS}/cmake)
 find_package(ROOT 6.16 REQUIRED)
-message(STATUS ${ROOT_INCLUDE_DIRS})
+message(STATUS "Found ROOT (${ROOT_VERSION})")
 
-if(CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
-        option(CMSTKMODLAB_MARTA "Build with support for MARTA CO2 chiller" OFF)
-else()
-        option(CMSTKMODLAB_MARTA "Build with support for MARTA CO2 chiller" ON)
-endif()
+option(CMSTKMODLAB_MARTA "Build with support for MARTA CO2 chiller" OFF)
 
 if(CMSTKMODLAB_MARTA)
         message(STATUS "Support for MARTA CO2 chiller: ON")
@@ -88,7 +107,7 @@ endif()
 option(CMSTKMODLAB_THERMO1 "Build with support for version 1 of thermal test setup" OFF)
 if(CMSTKMODLAB_THERMO1)
         message(STATUS "Support for version 1 of thermal test setup: ON")
-        include(FindQwt)
+        include(FindQWT)
 else()
         message(STATUS "Support for version 1 of thermal test setup: OFF")
 endif()
@@ -148,13 +167,17 @@ else()
 endif()
 
 if(CMSTKMODLAB_ASSEMBLY OR CMSTKMODLAB_DEFO)
-	pkg_check_modules(LIBGPHOTO2 REQUIRED IMPORTED_TARGET libgphoto2)
-	if(CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
-	        find_package(OpenCV REQUIRED)
-	else()
-		pkg_check_modules(OPENCV4 REQUIRED IMPORTED_TARGET opencv4)
-	endif()
-	pkg_check_modules(EXIV2 REQUIRED IMPORTED_TARGET exiv2)
+        pkg_check_modules(LIBGPHOTO2 REQUIRED IMPORTED_TARGET libgphoto2)
+        if(CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
+                find_package(OpenCV REQUIRED)
+        else()
+                pkg_check_modules(OPENCV4 REQUIRED IMPORTED_TARGET opencv4)
+        endif()
+        pkg_check_modules(EXIV2 REQUIRED IMPORTED_TARGET exiv2)
+endif()
+
+if(CMSTKMODLAB_ASSEMBLY AND NOT CMSTKMODLAB_FAKEUEYE)
+        include(Findueyeapi)
 endif()
 
 configure_file(tkmodlabenv.sh.in tkmodlabenv.sh)
@@ -165,3 +188,9 @@ add_subdirectory(devices)
 add_subdirectory(tools)
 add_subdirectory(common)
 add_subdirectory(common_test)
+
+enable_testing()
+add_test(NAME testApplicationConfig COMMAND testApplicationConfig)
+add_test(NAME testRingbuffer COMMAND testRingbuffer)
+add_test(NAME testFifo COMMAND testFifo)
+add_test(NAME testHistoryFifo COMMAND testHistoryFifo)

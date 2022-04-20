@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////
 //                                                                             //
-//               Copyright (C) 2011-2021 - The DESY CMS Group                  //
+//               Copyright (C) 2011-2022 - The DESY CMS Group                  //
 //                           All rights reserved                               //
 //                                                                             //
 //      The CMStkModLab source code is licensed under the GNU GPL v3.0.        //
@@ -76,7 +76,6 @@ protected:
 
   // cached config information
   std::array<std::array<State,10>,2> sensorStates_;
-  std::array<std::array<VKeithleyDAQ6510::ChannelMode_t,10>,2> sensorModes_;
   std::array<std::array<double,10>,2> temperatures_;
 
   void setDeviceState( State state );

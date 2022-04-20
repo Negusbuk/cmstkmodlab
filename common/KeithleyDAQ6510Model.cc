@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////
 //                                                                             //
-//               Copyright (C) 2011-2020 - The DESY CMS Group                  //
+//               Copyright (C) 2011-2022 - The DESY CMS Group                  //
 //                           All rights reserved                               //
 //                                                                             //
 //      The CMStkModLab source code is licensed under the GNU GPL v3.0.        //
@@ -27,7 +27,6 @@ KeithleyDAQ6510Model::KeithleyDAQ6510Model(const char* port,
   for (int card=0;card<2;++card) {
     for (int channel=0;channel<10;++channel) {
       sensorStates_[card][channel] = OFF;
-      sensorModes_[card][channel] = VKeithleyDAQ6510::FourWireRTD_PT100;
       temperatures_[card][channel] = 0.0;
     }
   }
@@ -160,13 +159,13 @@ void KeithleyDAQ6510Model::setSensorEnabled(unsigned int sensor, bool enabled)
 
 void KeithleyDAQ6510Model::setSensorMode(unsigned int sensor, KeithleyDAQ6510_t::ChannelMode_t mode)
 {
-  unsigned int card = sensor / 100 - 1;
-  unsigned int channel = sensor % 100 - 1;
+  unsigned int card = sensor / 100;
+  unsigned int channel = sensor % 100;
 
   if (controller_->GetChannelMode(card, channel)==mode) return;
 
   // if (sensorStates_[card][channel] == READY) {
-    controller_->SetChannelMode(card+1, channel+1, mode);
+    controller_->SetChannelMode(card, channel, mode);
     emit sensorModeChanged(sensor, mode);
   //}
 }
@@ -194,10 +193,10 @@ const State & KeithleyDAQ6510Model::getSensorState(unsigned int sensor) const
 
 VKeithleyDAQ6510::ChannelMode_t KeithleyDAQ6510Model::getSensorMode(unsigned int sensor) const
 {
-  unsigned int card = sensor / 100 - 1;
-  unsigned int channel = sensor % 100 - 1;
+  unsigned int card = sensor / 100;
+  unsigned int channel = sensor % 100;
 
-  return sensorModes_[card][channel];
+  return controller_->GetChannelMode(card, channel);
 }
 
 const std::map<VKeithleyDAQ6510::ChannelMode_t,std::string>& KeithleyDAQ6510Model::getSensorModeNames() const

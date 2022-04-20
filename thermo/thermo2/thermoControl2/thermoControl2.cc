@@ -35,6 +35,10 @@ int main(int argc, char *argv[])
 
   parser.addPositionalArgument("<command>",
       "One of the following commands:\n"
+      " ThermoDAQ2\n"
+      " -------------\n"
+      "   start\n"
+      "   stop\n"
       " Huber Unistat\n"
       " -------------\n"
       "   getKp\n"
@@ -62,7 +66,15 @@ int main(int argc, char *argv[])
 
   const QString command = args.first();
 
-  if (command == "getKp") {
+  if (command == "start") {
+    parser.clearPositionalArguments();
+    if (args.count()!=0) parser.showHelp(0);
+
+  } else if (command == "stop") {
+    parser.clearPositionalArguments();
+    if (args.count()!=0) parser.showHelp(0);
+
+  } else if (command == "getKp") {
     parser.clearPositionalArguments();
     parser.addPositionalArgument("getKp", "Get chiller Kp PID parameter");
     if (args.count()!=1) parser.showHelp(0);
@@ -180,7 +192,8 @@ int main(int argc, char *argv[])
     parameters << args[args.count()-1];
   }
 
-  ApplicationConfig::instance(std::string(Config::CMSTkModLabBasePath) + "/thermo/thermo2/thermo2.cfg");
+  ApplicationConfig::instance();
+  ApplicationConfig::instance()->append(std::string(Config::CMSTkModLabBasePath) + "/thermo/thermo2/thermo2.cfg", "main");
 
   Controller controller(command, parameters);
   QTimer::singleShot(0, &controller, SLOT(connectToServer()));

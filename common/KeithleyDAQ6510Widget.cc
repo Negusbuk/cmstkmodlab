@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////
 //                                                                             //
-//               Copyright (C) 2011-2020 - The DESY CMS Group                  //
+//               Copyright (C) 2011-2022 - The DESY CMS Group                  //
 //                           All rights reserved                               //
 //                                                                             //
 //      The CMStkModLab source code is licensed under the GNU GPL v3.0.        //
@@ -215,8 +215,10 @@ void KeithleyDAQ6510SensorModeWidget::scanStateChanged(bool /* enabled */)
   updateWidgets();
 }
 
-void KeithleyDAQ6510SensorModeWidget::sensorModeChanged(uint /* sensor */, VKeithleyDAQ6510::ChannelMode_t /* mode */)
+void KeithleyDAQ6510SensorModeWidget::sensorModeChanged(uint sensor, VKeithleyDAQ6510::ChannelMode_t /* mode */)
 {
+  if (sensor!=sensor_) return;
+  
   int userValue = itemData(currentIndex()).toInt();
 
   if (model_->getSensorMode(sensor_)!=userValue) {
@@ -327,15 +329,14 @@ void KeithleyDAQ6510TemperatureWidget::updateWidgets()
   enabledCheckBox_->setChecked(sensorState == READY || sensorState == INITIALIZING);
 
   enabledCheckBox_->setEnabled(!scanState);
+  sensorMode_->setEnabled(!scanState);
   
   if (sensorState == READY) {
     currentTempLabel_->setEnabled( true );
     currentTempDisplay_->setEnabled( true );
-    sensorMode_->setEnabled( true );
   } else {
     currentTempLabel_->setEnabled( false );
     currentTempDisplay_->setEnabled( false );
-    sensorMode_->setEnabled( false );
   }
 }
 
@@ -358,9 +359,11 @@ void KeithleyDAQ6510TemperatureWidget::controlStateChanged(bool enabled)
     State state = model_->getDeviceState();
     bool scanState = model_->getScanState();
     enabledCheckBox_->setEnabled((state == READY || state == INITIALIZING) && !scanState);
+    sensorMode_->setEnabled((state == READY || state == INITIALIZING) && !scanState);
     updateWidgets();
   } else {
     enabledCheckBox_->setEnabled(false);
+    sensorMode_->setEnabled(false);
     currentTempLabel_->setEnabled(false);
     currentTempDisplay_->setEnabled(false);
   }
